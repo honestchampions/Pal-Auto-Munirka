@@ -449,19 +449,15 @@
         // CONFIGURATION - REPLACE THESE WITH YOUR EMAILJS CREDENTIALS
         // ====================================================================
         const EMAILJS_CONFIG = {
-            publicKey: 'sEQwex5V8-qZeJkb5',  // Get from EmailJS Dashboard
-            serviceId: 'service_u89w1lh',   // Get from EmailJS Dashboard
-            templateId: 'template_fdrhixh'  // Get from EmailJS Dashboard
+            publicKey: 'sEQwex5V8-qZeJkb5',  // Your EmailJS Public Key
+            serviceId: 'service_u89w1lh',     // Your EmailJS Service ID
+            templateId: 'template_fdrhixh'    // Your EmailJS Template ID
         };
         
         // Initialize EmailJS
         (function() {
-            if (EMAILJS_CONFIG.publicKey !== 'sEQwex5V8-qZeJkb5') {
-                emailjs.init(EMAILJS_CONFIG.publicKey);
-            } else {
-                // Show setup notice if not configured
-                document.getElementById('setupNotice').style.display = 'block';
-            }
+            emailjs.init(EMAILJS_CONFIG.publicKey);
+            console.log('EmailJS initialized successfully');
         })();
 
         // Store bookings
@@ -488,11 +484,7 @@
         async function handleSubmit(event) {
             event.preventDefault();
             
-            // Check if EmailJS is configured
-            if (EMAILJS_CONFIG.publicKey === 'sEQwex5V8-qZeJkb5') {
-                showError('Please configure EmailJS credentials first. See the setup instructions above.');
-                return;
-            }
+            console.log('Form submitted - starting booking process...');
             
             // Disable submit button and show loading
             const submitBtn = document.getElementById('submitBtn');
@@ -512,6 +504,8 @@
             const carModel = document.getElementById('carModel').value;
             const specialRequest = document.getElementById('specialRequest').value;
             
+            console.log('Booking data collected:', { name, email, phone, service, date, time });
+            
             // Create booking object
             const booking = {
                 id: Date.now(),
@@ -528,6 +522,8 @@
             
             // Store booking
             bookings.push(booking);
+            console.log('Booking stored. Total bookings:', bookings.length);
+            console.log('Booking details:', booking);
             
             // Prepare email parameters
             const templateParams = {
@@ -541,10 +537,11 @@
                 special_request: specialRequest || 'None',
                 booking_time: new Date().toLocaleString('en-IN'),
                 booking_id: booking.id,
-                // For WhatsApp/SMS notifications
                 phone_1: '+918588801785',
                 phone_2: '+917042342392'
             };
+            
+            console.log('Sending email with parameters:', templateParams);
             
             try {
                 // Send email using EmailJS
@@ -554,7 +551,7 @@
                     templateParams
                 );
                 
-                console.log('Email sent successfully:', response);
+                console.log('✅ Email sent successfully:', response);
                 
                 // Show success message
                 document.getElementById('customerPhoneDisplay').textContent = phone;
@@ -564,7 +561,7 @@
                 document.getElementById('bookingFormElement').reset();
                 
             } catch (error) {
-                console.error('Error sending email:', error);
+                console.error('❌ Error sending email:', error);
                 showError('Failed to send booking. Please try again or call us directly at +91-7042342392');
             } finally {
                 // Re-enable submit button
