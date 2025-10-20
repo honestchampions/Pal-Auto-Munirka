@@ -23,6 +23,9 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.0/css/bootstrap.min.css" rel="stylesheet">
     
+    <!-- EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
     <style>
         body {
             font-family: 'Ubuntu', sans-serif;
@@ -50,6 +53,11 @@
             border-color: #e55a1f;
         }
         
+        .btn-primary:disabled {
+            background-color: #ffb199;
+            border-color: #ffb199;
+        }
+        
         .bg-secondary {
             background-color: #231E1D !important;
         }
@@ -69,15 +77,11 @@
             color: #FF6A28 !important;
         }
         
-        #spinner {
-            display: none;
-        }
-        
         .booking {
             padding: 50px 0;
         }
         
-        .success-message {
+        .success-message, .error-message {
             display: none;
             position: fixed;
             top: 50%;
@@ -89,6 +93,7 @@
             box-shadow: 0 0 20px rgba(0,0,0,0.3);
             z-index: 9999;
             text-align: center;
+            max-width: 500px;
         }
         
         .overlay {
@@ -101,19 +106,63 @@
             background: rgba(0,0,0,0.5);
             z-index: 9998;
         }
+        
+        .loading-spinner {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10000;
+        }
+        
+        .setup-notice {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px;
+        }
     </style>
 </head>
 
 <body>
-    <!-- Overlay for success message -->
+    <!-- Overlay -->
     <div class="overlay" id="overlay"></div>
+    
+    <!-- Loading Spinner -->
+    <div class="loading-spinner" id="loadingSpinner">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="visually-hidden">Sending...</span>
+        </div>
+    </div>
     
     <!-- Success Message -->
     <div class="success-message" id="successMessage">
         <i class="fas fa-check-circle text-success" style="font-size: 60px;"></i>
         <h3 class="mt-3">Booking Submitted Successfully!</h3>
-        <p>Your booking details have been sent to our WhatsApp. We'll contact you shortly.</p>
-        <button class="btn btn-primary" onclick="closeSuccessMessage()">Close</button>
+        <p>Your booking details have been sent automatically via email and SMS to our team. We'll contact you shortly at <strong id="customerPhoneDisplay"></strong>.</p>
+        <button class="btn btn-primary" onclick="closeMessages()">Close</button>
+    </div>
+    
+    <!-- Error Message -->
+    <div class="error-message" id="errorMessage">
+        <i class="fas fa-exclamation-circle text-danger" style="font-size: 60px;"></i>
+        <h3 class="mt-3">Setup Required</h3>
+        <p id="errorText">Please complete the EmailJS setup to enable automated notifications.</p>
+        <button class="btn btn-primary" onclick="closeMessages()">Close</button>
+    </div>
+
+    <!-- Setup Notice (Only visible if not configured) -->
+    <div class="setup-notice" id="setupNotice" style="display: none;">
+        <h5><i class="fas fa-exclamation-triangle text-warning"></i> Configuration Required</h5>
+        <p><strong>To enable automatic email/SMS notifications, follow these steps:</strong></p>
+        <ol>
+            <li>Create a free account at <a href="https://www.emailjs.com/" target="_blank">EmailJS.com</a></li>
+            <li>Get your Public Key, Service ID, and Template ID</li>
+            <li>Update the configuration in the JavaScript section of this code</li>
+        </ol>
+        <button class="btn btn-sm btn-primary" onclick="document.getElementById('setupNotice').style.display='none'">Got it</button>
     </div>
 
     <!-- Topbar Start -->
@@ -243,6 +292,7 @@
                                 <li>Genuine Parts</li>
                                 <li>Competitive Pricing</li>
                                 <li>Quick Service</li>
+                                <li>Instant Booking Confirmation</li>
                             </ul>
                         </div>
                     </div>
@@ -253,16 +303,16 @@
                         <form id="bookingFormElement" onsubmit="handleSubmit(event)">
                             <div class="row g-3">
                                 <div class="col-12 col-sm-6">
-                                    <input type="text" class="form-control border-0" id="customerName" placeholder="Your Name" style="height: 55px;" required>
+                                    <input type="text" class="form-control border-0" id="customerName" name="customer_name" placeholder="Your Name" style="height: 55px;" required>
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <input type="email" class="form-control border-0" id="customerEmail" placeholder="Your Email" style="height: 55px;" required>
+                                    <input type="email" class="form-control border-0" id="customerEmail" name="customer_email" placeholder="Your Email" style="height: 55px;" required>
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <input type="tel" class="form-control border-0" id="customerPhone" placeholder="Your Phone" style="height: 55px;" required pattern="[0-9]{10}">
+                                    <input type="tel" class="form-control border-0" id="customerPhone" name="customer_phone" placeholder="Your Phone" style="height: 55px;" required pattern="[0-9]{10}">
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <select class="form-select border-0" id="serviceType" style="height: 55px;" required>
+                                    <select class="form-select border-0" id="serviceType" name="service_type" style="height: 55px;" required>
                                         <option value="" selected disabled>Select A Service</option>
                                         <option value="General Servicing">General Servicing</option>
                                         <option value="Engine Repair">Engine Repair</option>
@@ -277,19 +327,24 @@
                                     </select>
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <input type="date" class="form-control border-0" id="serviceDate" style="height: 55px;" required>
+                                    <input type="date" class="form-control border-0" id="serviceDate" name="service_date" style="height: 55px;" required>
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <input type="time" class="form-control border-0" id="serviceTime" style="height: 55px;" required>
+                                    <input type="time" class="form-control border-0" id="serviceTime" name="service_time" style="height: 55px;" required>
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" class="form-control border-0" id="carModel" placeholder="Car Model (e.g., Honda City 2020)" style="height: 55px;">
+                                    <input type="text" class="form-control border-0" id="carModel" name="car_model" placeholder="Car Model (e.g., Honda City 2020)" style="height: 55px;">
                                 </div>
                                 <div class="col-12">
-                                    <textarea class="form-control border-0" id="specialRequest" placeholder="Special Request (Optional)" rows="3"></textarea>
+                                    <textarea class="form-control border-0" id="specialRequest" name="special_request" placeholder="Special Request (Optional)" rows="3"></textarea>
                                 </div>
                                 <div class="col-12">
-                                    <button class="btn btn-secondary w-100 py-3" type="submit">Book Now</button>
+                                    <button class="btn btn-secondary w-100 py-3" type="submit" id="submitBtn">
+                                        <span id="btnText">Book Now - Instant Confirmation</span>
+                                        <span id="btnSpinner" style="display: none;">
+                                            <span class="spinner-border spinner-border-sm me-2"></span>Sending...
+                                        </span>
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -390,6 +445,28 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
     
     <script>
+        // ====================================================================
+        // CONFIGURATION - REPLACE THESE WITH YOUR EMAILJS CREDENTIALS
+        // ====================================================================
+        const EMAILJS_CONFIG = {
+            publicKey: 'YOUR_PUBLIC_KEY_HERE',  // Get from EmailJS Dashboard
+            serviceId: 'YOUR_SERVICE_ID_HERE',   // Get from EmailJS Dashboard
+            templateId: 'YOUR_TEMPLATE_ID_HERE'  // Get from EmailJS Dashboard
+        };
+        
+        // Initialize EmailJS
+        (function() {
+            if (EMAILJS_CONFIG.publicKey !== 'YOUR_PUBLIC_KEY_HERE') {
+                emailjs.init(EMAILJS_CONFIG.publicKey);
+            } else {
+                // Show setup notice if not configured
+                document.getElementById('setupNotice').style.display = 'block';
+            }
+        })();
+
+        // Store bookings
+        let bookings = [];
+
         // Back to top button
         window.onscroll = function() {
             const backToTop = document.querySelector('.back-to-top');
@@ -408,11 +485,22 @@
         // Set minimum date to today
         document.getElementById('serviceDate').min = new Date().toISOString().split('T')[0];
 
-        // Store bookings
-        let bookings = [];
-
-        function handleSubmit(event) {
+        async function handleSubmit(event) {
             event.preventDefault();
+            
+            // Check if EmailJS is configured
+            if (EMAILJS_CONFIG.publicKey === 'YOUR_PUBLIC_KEY_HERE') {
+                showError('Please configure EmailJS credentials first. See the setup instructions above.');
+                return;
+            }
+            
+            // Disable submit button and show loading
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const btnSpinner = document.getElementById('btnSpinner');
+            submitBtn.disabled = true;
+            btnText.style.display = 'none';
+            btnSpinner.style.display = 'inline';
             
             // Get form values
             const name = document.getElementById('customerName').value;
@@ -435,76 +523,79 @@
                 time: time,
                 carModel: carModel,
                 specialRequest: specialRequest,
-                timestamp: new Date().toLocaleString()
+                timestamp: new Date().toLocaleString('en-IN')
             };
             
             // Store booking
             bookings.push(booking);
-            console.log('Booking stored:', booking);
-            console.log('All bookings:', bookings);
             
-            // Format message for WhatsApp
-            const message = `🚗 *New Booking - Pal Auto Munirka*
-
-👤 *Customer Details:*
-Name: ${name}
-Phone: ${phone}
-Email: ${email}
-
-🔧 *Service Details:*
-Service Type: ${service}
-Date: ${new Date(date).toLocaleDateString('en-IN')}
-Time: ${time}
-${carModel ? `Car Model: ${carModel}` : ''}
-
-${specialRequest ? `📝 *Special Request:*\n${specialRequest}` : ''}
-
-⏰ Booking Time: ${new Date().toLocaleString('en-IN')}`;
-
-            const encodedMessage = encodeURIComponent(message);
+            // Prepare email parameters
+            const templateParams = {
+                customer_name: name,
+                customer_email: email,
+                customer_phone: phone,
+                service_type: service,
+                service_date: new Date(date).toLocaleDateString('en-IN'),
+                service_time: time,
+                car_model: carModel || 'Not specified',
+                special_request: specialRequest || 'None',
+                booking_time: new Date().toLocaleString('en-IN'),
+                booking_id: booking.id,
+                // For WhatsApp/SMS notifications
+                phone_1: '+918588801785',
+                phone_2: '+917042342392'
+            };
             
-            // WhatsApp numbers
-            const phone1 = '918588801785';
-            const phone2 = '917042342392';
-            
-            // Open WhatsApp for first number
-            window.open(`https://wa.me/${phone1}?text=${encodedMessage}`, '_blank');
-            
-            // Open WhatsApp for second number after a short delay
-            setTimeout(() => {
-                window.open(`https://wa.me/${phone2}?text=${encodedMessage}`, '_blank');
-            }, 1000);
-            
-            // Show success message
-            showSuccessMessage();
-            
-            // Reset form
-            document.getElementById('bookingFormElement').reset();
+            try {
+                // Send email using EmailJS
+                const response = await emailjs.send(
+                    EMAILJS_CONFIG.serviceId,
+                    EMAILJS_CONFIG.templateId,
+                    templateParams
+                );
+                
+                console.log('Email sent successfully:', response);
+                
+                // Show success message
+                document.getElementById('customerPhoneDisplay').textContent = phone;
+                showSuccess();
+                
+                // Reset form
+                document.getElementById('bookingFormElement').reset();
+                
+            } catch (error) {
+                console.error('Error sending email:', error);
+                showError('Failed to send booking. Please try again or call us directly at +91-7042342392');
+            } finally {
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                btnText.style.display = 'inline';
+                btnSpinner.style.display = 'none';
+            }
         }
 
-        function showSuccessMessage() {
+        function showSuccess() {
             document.getElementById('overlay').style.display = 'block';
             document.getElementById('successMessage').style.display = 'block';
         }
 
-        function closeSuccessMessage() {
-            document.getElementById('overlay').style.display = 'none';
-            document.getElementById('successMessage').style.display = 'none';
+        function showError(message) {
+            document.getElementById('errorText').textContent = message;
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('errorMessage').style.display = 'block';
         }
 
-        // Close success message when clicking overlay
-        document.getElementById('overlay').addEventListener('click', closeSuccessMessage);
+        function closeMessages() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+
+        // Close messages when clicking overlay
+        document.getElementById('overlay').addEventListener('click', closeMessages);
 
         // Export bookings function (for admin use)
         function exportBookings() {
             console.log('Total Bookings:', bookings.length);
-            console.log(JSON.stringify(bookings, null, 2));
+            console.table(bookings);
             return bookings;
-        }
-
-        // Make exportBookings available in console
-        window.exportBookings = exportBookings;
-    </script>
-</body>
-
-</html>
