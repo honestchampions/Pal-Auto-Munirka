@@ -449,14 +449,14 @@
         // CONFIGURATION - REPLACE THESE WITH YOUR EMAILJS CREDENTIALS
         // ====================================================================
         const EMAILJS_CONFIG = {
-            publicKey: 'YOUR_PUBLIC_KEY_HERE',  // Get from EmailJS Dashboard
-            serviceId: 'YOUR_SERVICE_ID_HERE',   // Get from EmailJS Dashboard
-            templateId: 'YOUR_TEMPLATE_ID_HERE'  // Get from EmailJS Dashboard
+            publicKey: 'sEQwex5V8-qZeJkb5',  // Get from EmailJS Dashboard
+            serviceId: 'service_u89w1lh',   // Get from EmailJS Dashboard
+            templateId: 'template_fdrhixh'  // Get from EmailJS Dashboard
         };
         
         // Initialize EmailJS
         (function() {
-            if (EMAILJS_CONFIG.publicKey !== 'YOUR_PUBLIC_KEY_HERE') {
+            if (EMAILJS_CONFIG.publicKey !== 'sEQwex5V8-qZeJkb5') {
                 emailjs.init(EMAILJS_CONFIG.publicKey);
             } else {
                 // Show setup notice if not configured
@@ -489,7 +489,7 @@
             event.preventDefault();
             
             // Check if EmailJS is configured
-            if (EMAILJS_CONFIG.publicKey === 'YOUR_PUBLIC_KEY_HERE') {
+            if (EMAILJS_CONFIG.publicKey === 'sEQwex5V8-qZeJkb5') {
                 showError('Please configure EmailJS credentials first. See the setup instructions above.');
                 return;
             }
