@@ -20,27 +20,101 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.0/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Ubuntu', sans-serif;
+        }
+        
+        .navbar-brand h2 {
+            font-family: 'Barlow', sans-serif;
+        }
+        
+        .bg-primary {
+            background-color: #FF6A28 !important;
+        }
+        
+        .text-primary {
+            color: #FF6A28 !important;
+        }
+        
+        .btn-primary {
+            background-color: #FF6A28;
+            border-color: #FF6A28;
+        }
+        
+        .btn-primary:hover {
+            background-color: #e55a1f;
+            border-color: #e55a1f;
+        }
+        
+        .bg-secondary {
+            background-color: #231E1D !important;
+        }
+        
+        .btn-secondary {
+            background-color: #231E1D;
+            border-color: #231E1D;
+        }
+        
+        .page-header {
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0;
+        }
+        
+        .spinner-border {
+            color: #FF6A28 !important;
+        }
+        
+        #spinner {
+            display: none;
+        }
+        
+        .booking {
+            padding: 50px 0;
+        }
+        
+        .success-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            z-index: 9999;
+            text-align: center;
+        }
+        
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 9998;
+        }
+    </style>
 </head>
 
 <body>
-    <!-- Spinner Start -->
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
+    <!-- Overlay for success message -->
+    <div class="overlay" id="overlay"></div>
+    
+    <!-- Success Message -->
+    <div class="success-message" id="successMessage">
+        <i class="fas fa-check-circle text-success" style="font-size: 60px;"></i>
+        <h3 class="mt-3">Booking Submitted Successfully!</h3>
+        <p>Your booking details have been sent to our WhatsApp. We'll contact you shortly.</p>
+        <button class="btn btn-primary" onclick="closeSuccessMessage()">Close</button>
     </div>
-    <!-- Spinner End -->
-
 
     <!-- Topbar Start -->
     <div class="container-fluid bg-light p-0">
@@ -71,7 +145,6 @@
     </div>
     <!-- Topbar End -->
 
-
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
         <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
@@ -96,21 +169,20 @@
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
             </div>
-            <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Get A Quote<i class="fa fa-arrow-right ms-3"></i></a>
+            <a href="#bookingForm" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Get A Quote<i class="fa fa-arrow-right ms-3"></i></a>
         </div>
     </nav>
     <!-- Navbar End -->
 
-
     <!-- Page Header Start -->
-    <div class="container-fluid page-header mb-5 p-0" style="background-image: url(img/carousel-bg-1.jpg);">
+    <div class="container-fluid page-header mb-5 p-0" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=1200') center;">
         <div class="container-fluid page-header-inner py-5">
             <div class="container text-center">
-                <h1 class="display-3 text-white mb-3 animated slideInDown">Booking</h1>
+                <h1 class="display-3 text-white mb-3">Booking</h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-center text-uppercase">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                        <li class="breadcrumb-item"><a href="#" class="text-white">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#" class="text-white">Pages</a></li>
                         <li class="breadcrumb-item text-white active" aria-current="page">Booking</li>
                     </ol>
                 </nav>
@@ -119,38 +191,34 @@
     </div>
     <!-- Page Header End -->
 
-
     <!-- Service Start -->
     <div class="container-xxl py-5">
         <div class="container">
             <div class="row g-4">
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="col-lg-4 col-md-6">
                     <div class="d-flex py-5 px-4">
                         <i class="fa fa-certificate fa-3x text-primary flex-shrink-0"></i>
                         <div class="ps-4">
                             <h5 class="mb-3">Quality Servicing</h5>
-                            <p>We provide experiencial mechanical services</p>
-                            <a class="text-secondary border-bottom" href="">Read More</a>
+                            <p>We provide experiential mechanical services</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="col-lg-4 col-md-6">
                     <div class="d-flex bg-light py-5 px-4">
                         <i class="fa fa-users-cog fa-3x text-primary flex-shrink-0"></i>
                         <div class="ps-4">
                             <h5 class="mb-3">Expert Workers</h5>
                             <p>Our workers are experienced by vintage</p>
-                            <a class="text-secondary border-bottom" href="">Read More</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="col-lg-4 col-md-6">
                     <div class="d-flex py-5 px-4">
                         <i class="fa fa-tools fa-3x text-primary flex-shrink-0"></i>
                         <div class="ps-4">
                             <h5 class="mb-3">Modern Equipment</h5>
-                            <p>Our intimate tools are fantabulous to work</p>
-                            <a class="text-secondary border-bottom" href="">Read More</a>
+                            <p>Our tools are fantastic to work with</p>
                         </div>
                     </div>
                 </div>
@@ -159,45 +227,66 @@
     </div>
     <!-- Service End -->
 
-
     <!-- Booking Start -->
-    <div class="container-fluid bg-secondary booking my-5 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="container-fluid bg-secondary booking my-5" id="bookingForm">
         <div class="container">
             <div class="row gx-5">
                 <div class="col-lg-6 py-5">
                     <div class="py-5">
                         <h1 class="text-white mb-4">Certified and Award Winning Car Repair Service Provider</h1>
-                        <p class="text-white mb-0">Eirmod sed tempor lorem ut dolores. Aliquyam sit sadipscing kasd ipsum. Dolor ea et dolore et at sea ea at dolor, justo ipsum duo rebum sea invidunt voluptua. Eos vero eos vero ea et dolore eirmod et. Dolores diam duo invidunt lorem. Elitr ut dolores magna sit. Sea dolore sanctus sed et. Takimata takimata sanctus sed.</p>
+                        <p class="text-white mb-4">At Pal Auto Munirka, we provide top-quality car repair and maintenance services with experienced technicians and modern equipment. Book your service appointment now and experience the difference!</p>
+                        <div class="text-white">
+                            <h5 class="text-white mb-3">Why Choose Us?</h5>
+                            <ul>
+                                <li>15+ Years of Experience</li>
+                                <li>Certified Technicians</li>
+                                <li>Genuine Parts</li>
+                                <li>Competitive Pricing</li>
+                                <li>Quick Service</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="bg-primary h-100 d-flex flex-column justify-content-center text-center p-5 wow zoomIn" data-wow-delay="0.6s">
+                    <div class="bg-primary h-100 d-flex flex-column justify-content-center text-center p-5">
                         <h1 class="text-white mb-4">Book For A Service</h1>
-                        <form>
+                        <form id="bookingFormElement" onsubmit="handleSubmit(event)">
                             <div class="row g-3">
                                 <div class="col-12 col-sm-6">
-                                    <input type="text" class="form-control border-0" placeholder="Your Name" style="height: 55px;">
+                                    <input type="text" class="form-control border-0" id="customerName" placeholder="Your Name" style="height: 55px;" required>
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <input type="email" class="form-control border-0" placeholder="Your Email" style="height: 55px;">
+                                    <input type="email" class="form-control border-0" id="customerEmail" placeholder="Your Email" style="height: 55px;" required>
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <select class="form-select border-0" style="height: 55px;">
-                                        <option selected>Select A Service</option>
-                                        <option value="1">Service 1</option>
-                                        <option value="2">Service 2</option>
-                                        <option value="3">Service 3</option>
+                                    <input type="tel" class="form-control border-0" id="customerPhone" placeholder="Your Phone" style="height: 55px;" required pattern="[0-9]{10}">
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <select class="form-select border-0" id="serviceType" style="height: 55px;" required>
+                                        <option value="" selected disabled>Select A Service</option>
+                                        <option value="General Servicing">General Servicing</option>
+                                        <option value="Engine Repair">Engine Repair</option>
+                                        <option value="Brake Service">Brake Service</option>
+                                        <option value="Oil Change">Oil Change</option>
+                                        <option value="Tire Replacement">Tire Replacement</option>
+                                        <option value="AC Repair">AC Repair</option>
+                                        <option value="Battery Replacement">Battery Replacement</option>
+                                        <option value="Diagnostic Test">Diagnostic Test</option>
+                                        <option value="Insurance Renewal">Insurance Renewal</option>
+                                        <option value="Other">Other</option>
                                     </select>
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <div class="date" id="date1" data-target-input="nearest">
-                                        <input type="text"
-                                            class="form-control border-0 datetimepicker-input"
-                                            placeholder="Service Date" data-target="#date1" data-toggle="datetimepicker" style="height: 55px;">
-                                    </div>
+                                    <input type="date" class="form-control border-0" id="serviceDate" style="height: 55px;" required>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <input type="time" class="form-control border-0" id="serviceTime" style="height: 55px;" required>
                                 </div>
                                 <div class="col-12">
-                                    <textarea class="form-control border-0" placeholder="Special Request"></textarea>
+                                    <input type="text" class="form-control border-0" id="carModel" placeholder="Car Model (e.g., Honda City 2020)" style="height: 55px;">
+                                </div>
+                                <div class="col-12">
+                                    <textarea class="form-control border-0" id="specialRequest" placeholder="Special Request (Optional)" rows="3"></textarea>
                                 </div>
                                 <div class="col-12">
                                     <button class="btn btn-secondary w-100 py-3" type="submit">Book Now</button>
@@ -211,20 +300,19 @@
     </div>
     <!-- Booking End -->
 
-
     <!-- Call To Action Start -->
-    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="container-xxl py-5">
         <div class="container">
             <div class="row g-4">
                 <div class="col-lg-8 col-md-6">
                     <h6 class="text-primary text-uppercase">// Call To Action //</h6>
                     <h1 class="mb-4">Have Any Pre Booking Question?</h1>
-                    <p class="mb-0">Get in touch with Er. Jassi to check your convinience and schedule accordingly</p>
+                    <p class="mb-0">Get in touch with Er. Jassi to check your convenience and schedule accordingly</p>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="bg-primary d-flex flex-column justify-content-center text-center h-100 p-4">
                         <h3 class="text-white mb-4"><i class="fa fa-phone-alt me-3"></i>+91-7042342392</h3>
-                        <a href="" class="btn btn-secondary py-3 px-5">Contact Us<i class="fa fa-arrow-right ms-3"></i></a>
+                        <a href="tel:+917042342392" class="btn btn-secondary py-3 px-5">Contact Us<i class="fa fa-arrow-right ms-3"></i></a>
                     </div>
                 </div>
             </div>
@@ -232,20 +320,19 @@
     </div>
     <!-- Call To Action End -->
 
-
     <!-- Footer Start -->
-    <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container-fluid bg-dark text-light footer pt-5 mt-5">
         <div class="container py-5">
             <div class="row g-5">
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-light mb-4">Address</h4>
                     <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>20A, Kartar Market Munirka, New Delhi-110067</p>
-                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+91-70423423920</p>
-                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+91-7042342392</p>
+                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@palautomunirka.com</p>
                     <div class="d-flex pt-2">
-                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+                        <a class="btn btn-outline-light btn-social me-2" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-light btn-social me-2" href=""><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-light btn-social me-2" href=""><i class="fab fa-youtube"></i></a>
                         <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
@@ -258,16 +345,16 @@
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-light mb-4">Services</h4>
-                    <a class="btn btn-link" href="">Diagnostic Test</a>
-                    <a class="btn btn-link" href="">Engine Servicing</a>
-                    <a class="btn btn-link" href="">Tires Replacement</a>
-                    <a class="btn btn-link" href="">Oil Changing</a>
-                    <a class="btn btn-link" href="">Vacuam Cleaning</a>
-                    <a class="btn btn-link" href="https://www.honestchampions.com/fiscal/insurance">Insurance Renewal</a>
+                    <a class="btn btn-link text-light" href="">Diagnostic Test</a>
+                    <a class="btn btn-link text-light" href="">Engine Servicing</a>
+                    <a class="btn btn-link text-light" href="">Tires Replacement</a>
+                    <a class="btn btn-link text-light" href="">Oil Changing</a>
+                    <a class="btn btn-link text-light" href="">Vacuum Cleaning</a>
+                    <a class="btn btn-link text-light" href="">Insurance Renewal</a>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-light mb-4">Newsletter</h4>
-                    <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+                    <p>Stay updated with our latest offers and services.</p>
                     <div class="position-relative mx-auto" style="max-width: 400px;">
                         <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
                         <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
@@ -279,17 +366,15 @@
             <div class="copyright">
                 <div class="row">
                     <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        &copy; <a class="border-bottom" href="#">Pal Auto Munirka</a>, All Right Reserved.
-
-                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                        Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
+                        &copy; <a class="border-bottom text-light" href="#">Pal Auto Munirka</a>, All Right Reserved.
+                        Designed By <a class="border-bottom text-light" href="https://htmlcodex.com">HTML Codex</a>
                     </div>
                     <div class="col-md-6 text-center text-md-end">
                         <div class="footer-menu">
-                            <a href="">Home</a>
-                            <a href="">Cookies</a>
-                            <a href="">Help</a>
-                            <a href="">FQAs</a>
+                            <a href="" class="text-light me-3">Home</a>
+                            <a href="" class="text-light me-3">Cookies</a>
+                            <a href="" class="text-light me-3">Help</a>
+                            <a href="" class="text-light">FQAs</a>
                         </div>
                     </div>
                 </div>
@@ -298,25 +383,128 @@
     </div>
     <!-- Footer End -->
 
-
     <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top" style="position: fixed; bottom: 20px; right: 20px; display: none;"><i class="bi bi-arrow-up"></i></a>
 
+    <!-- JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Back to top button
+        window.onscroll = function() {
+            const backToTop = document.querySelector('.back-to-top');
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                backToTop.style.display = 'block';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        };
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+        document.querySelector('.back-to-top').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        });
 
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+        // Set minimum date to today
+        document.getElementById('serviceDate').min = new Date().toISOString().split('T')[0];
+
+        // Store bookings
+        let bookings = [];
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('customerName').value;
+            const email = document.getElementById('customerEmail').value;
+            const phone = document.getElementById('customerPhone').value;
+            const service = document.getElementById('serviceType').value;
+            const date = document.getElementById('serviceDate').value;
+            const time = document.getElementById('serviceTime').value;
+            const carModel = document.getElementById('carModel').value;
+            const specialRequest = document.getElementById('specialRequest').value;
+            
+            // Create booking object
+            const booking = {
+                id: Date.now(),
+                name: name,
+                email: email,
+                phone: phone,
+                service: service,
+                date: date,
+                time: time,
+                carModel: carModel,
+                specialRequest: specialRequest,
+                timestamp: new Date().toLocaleString()
+            };
+            
+            // Store booking
+            bookings.push(booking);
+            console.log('Booking stored:', booking);
+            console.log('All bookings:', bookings);
+            
+            // Format message for WhatsApp
+            const message = `🚗 *New Booking - Pal Auto Munirka*
+
+👤 *Customer Details:*
+Name: ${name}
+Phone: ${phone}
+Email: ${email}
+
+🔧 *Service Details:*
+Service Type: ${service}
+Date: ${new Date(date).toLocaleDateString('en-IN')}
+Time: ${time}
+${carModel ? `Car Model: ${carModel}` : ''}
+
+${specialRequest ? `📝 *Special Request:*\n${specialRequest}` : ''}
+
+⏰ Booking Time: ${new Date().toLocaleString('en-IN')}`;
+
+            const encodedMessage = encodeURIComponent(message);
+            
+            // WhatsApp numbers
+            const phone1 = '918588801785';
+            const phone2 = '917042342392';
+            
+            // Open WhatsApp for first number
+            window.open(`https://wa.me/${phone1}?text=${encodedMessage}`, '_blank');
+            
+            // Open WhatsApp for second number after a short delay
+            setTimeout(() => {
+                window.open(`https://wa.me/${phone2}?text=${encodedMessage}`, '_blank');
+            }, 1000);
+            
+            // Show success message
+            showSuccessMessage();
+            
+            // Reset form
+            document.getElementById('bookingFormElement').reset();
+        }
+
+        function showSuccessMessage() {
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('successMessage').style.display = 'block';
+        }
+
+        function closeSuccessMessage() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+        }
+
+        // Close success message when clicking overlay
+        document.getElementById('overlay').addEventListener('click', closeSuccessMessage);
+
+        // Export bookings function (for admin use)
+        function exportBookings() {
+            console.log('Total Bookings:', bookings.length);
+            console.log(JSON.stringify(bookings, null, 2));
+            return bookings;
+        }
+
+        // Make exportBookings available in console
+        window.exportBookings = exportBookings;
+    </script>
 </body>
 
 </html>
