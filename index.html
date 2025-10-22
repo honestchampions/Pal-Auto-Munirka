@@ -30,9 +30,113 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    
+    <!-- EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
+    <style>
+        /* Brand Color Overrides - Change Red to Orange #FF6A28 */
+        .text-primary {
+            color: #FF6A28 !important;
+        }
+        
+        .bg-primary {
+            background-color: #FF6A28 !important;
+        }
+        
+        .btn-primary {
+            background-color: #FF6A28 !important;
+            border-color: #FF6A28 !important;
+        }
+        
+        .btn-primary:hover,
+        .btn-primary:focus {
+            background-color: #e55a1f !important;
+            border-color: #e55a1f !important;
+        }
+        
+        .bg-secondary {
+            background-color: #231E1D !important;
+        }
+        
+        .btn-secondary {
+            background-color: #231E1D !important;
+            border-color: #231E1D !important;
+        }
+        
+        .btn-secondary:hover,
+        .btn-secondary:focus {
+            background-color: #3a3533 !important;
+            border-color: #3a3533 !important;
+        }
+        
+        .navbar-light .navbar-nav .nav-link:hover,
+        .navbar-light .navbar-nav .nav-link.active {
+            color: #FF6A28 !important;
+        }
+        
+        .service .nav-pills .nav-link.active,
+        .service .nav-pills .nav-link:hover {
+            background: #FF6A28 !important;
+        }
+        
+        .text-secondary.border-bottom {
+            color: #6c757d !important;
+        }
+        
+        .text-secondary.border-bottom:hover {
+            color: #FF6A28 !important;
+        }
+        
+        /* Success/Error Messages */
+        .success-message, .error-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            z-index: 9999;
+            text-align: center;
+            max-width: 500px;
+        }
+        
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 9998;
+        }
+    </style>
 </head>
 
 <body>
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+    
+    <!-- Success Message -->
+    <div class="success-message" id="successMessage">
+        <i class="fas fa-check-circle text-success" style="font-size: 60px;"></i>
+        <h3 class="mt-3">Booking Submitted Successfully!</h3>
+        <p>Your booking details have been sent to our team. We'll contact you shortly at <strong id="customerPhoneDisplay"></strong>.</p>
+        <button class="btn btn-primary" onclick="closeMessages()">Close</button>
+    </div>
+    
+    <!-- Error Message -->
+    <div class="error-message" id="errorMessage">
+        <i class="fas fa-exclamation-circle text-danger" style="font-size: 60px;"></i>
+        <h3 class="mt-3">Booking Failed</h3>
+        <p id="errorText">Failed to send booking. Please try again or call us directly.</p>
+        <button class="btn btn-primary" onclick="closeMessages()">Close</button>
+    </div>
+
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -41,36 +145,34 @@
     </div>
     <!-- Spinner End -->
 
-
     <!-- Topbar Start -->
-<div class="container-fluid bg-light p-0">
-    <div class="row gx-0 d-none d-lg-flex">
-        <div class="col-lg-7 px-5 text-start">
-            <div class="h-100 d-inline-flex align-items-center py-3 me-4">
-                <small class="fa fa-map-marker-alt text-primary me-2"></small>
-                <small><a href="https://maps.app.goo.gl/h9NcExVCxoowknz38" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">20A, Kartar Market Munirka, New Delhi-110067</a></small>
+    <div class="container-fluid bg-light p-0">
+        <div class="row gx-0 d-none d-lg-flex">
+            <div class="col-lg-7 px-5 text-start">
+                <div class="h-100 d-inline-flex align-items-center py-3 me-4">
+                    <small class="fa fa-map-marker-alt text-primary me-2"></small>
+                    <small><a href="https://maps.app.goo.gl/h9NcExVCxoowknz38" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">20A, Kartar Market Munirka, New Delhi-110067</a></small>
+                </div>
+                <div class="h-100 d-inline-flex align-items-center py-3">
+                    <small class="far fa-clock text-primary me-2"></small>
+                    <small>Tue - Sat : 09.30 AM - 07.30 PM & Sun - Mon : 09:30AM - 08:30PM</small>
+                </div>
             </div>
-            <div class="h-100 d-inline-flex align-items-center py-3">
-                <small class="far fa-clock text-primary me-2"></small>
-                <small>Tue - Sat : 09.30 AM - 07.30 PM & Sun - Mon : 09:30AM - 08:30PM </small>
-            </div>
-        </div>
-        <div class="col-lg-5 px-5 text-end">
-            <div class="h-100 d-inline-flex align-items-center py-3 me-4">
-                <small class="fa fa-phone-alt text-primary me-2"></small>
-                <small>+917042342392</small>
-            </div>
-            <div class="h-100 d-inline-flex align-items-center">
-                <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-facebook-f"></i></a>
-                <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-twitter"></i></a>
-                <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-linkedin-in"></i></a>
-                <a class="btn btn-sm-square bg-white text-primary me-0" href=""><i class="fab fa-instagram"></i></a>
+            <div class="col-lg-5 px-5 text-end">
+                <div class="h-100 d-inline-flex align-items-center py-3 me-4">
+                    <small class="fa fa-phone-alt text-primary me-2"></small>
+                    <small>+917042342392</small>
+                </div>
+                <div class="h-100 d-inline-flex align-items-center">
+                    <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-linkedin-in"></i></a>
+                    <a class="btn btn-sm-square bg-white text-primary me-0" href=""><i class="fab fa-instagram"></i></a>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!-- Topbar End -->
-
+    <!-- Topbar End -->
 
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
@@ -100,7 +202,6 @@
         </div>
     </nav>
     <!-- Navbar End -->
-
 
     <!-- Carousel Start -->
     <div class="container-fluid p-0 mb-5">
@@ -155,7 +256,6 @@
     </div>
     <!-- Carousel End -->
 
-
     <!-- Service Start -->
     <div class="container-xxl py-5">
         <div class="container">
@@ -165,7 +265,7 @@
                         <i class="fa fa-certificate fa-3x text-primary flex-shrink-0"></i>
                         <div class="ps-4">
                             <h5 class="mb-3">Quality Servicing</h5>
-                            <p>Quality servicing ensures a vehicle's performance and longevity through expert repairs and meticulous maintenance that restore it to peak condition</p>
+                            <p>Quality servicing ensures your vehicle's performance and longevity through expert repairs and meticulous maintenance that restore it to peak condition</p>
                             <a class="text-secondary border-bottom" href="">Read More</a>
                         </div>
                     </div>
@@ -175,7 +275,7 @@
                         <i class="fa fa-users-cog fa-3x text-primary flex-shrink-0"></i>
                         <div class="ps-4">
                             <h5 class="mb-3">Expert Workers</h5>
-                            <p>Class apart mechanics working for us to give you best services at most economical prices</p>
+                            <p>Class-apart mechanics working with us to give you the best services at the most economical prices</p>
                             <a class="text-secondary border-bottom" href="">Read More</a>
                         </div>
                     </div>
@@ -185,7 +285,7 @@
                         <i class="fa fa-tools fa-3x text-primary flex-shrink-0"></i>
                         <div class="ps-4">
                             <h5 class="mb-3">Modern Equipment</h5>
-                            <p>We upgrade our repair equipments to meet changing times for better services</p>
+                            <p>We upgrade our repair equipment to meet changing times for better services and efficiency</p>
                             <a class="text-secondary border-bottom" href="">Read More</a>
                         </div>
                     </div>
@@ -194,7 +294,6 @@
         </div>
     </div>
     <!-- Service End -->
-
 
     <!-- About Start -->
     <div class="container-xxl py-5">
@@ -212,7 +311,7 @@
                 <div class="col-lg-6">
                     <h6 class="text-primary text-uppercase">// About Us //</h6>
                     <h1 class="mb-4"><span class="text-primary">Pal Auto Munirka</span> Is The Best Place For Your Auto Care</h1>
-                    <p class="mb-4">We have provided expert bike mechanical services from ages and generations learnt the art of car mechanics to offer best in class services with hospitality</p>
+                    <p class="mb-4">We have provided expert bike mechanical services for ages. Generations have learned the art of car mechanics to offer best-in-class services with hospitality</p>
                     <div class="row g-4 mb-3 pb-3">
                         <div class="col-12 wow fadeIn" data-wow-delay="0.1s">
                             <div class="d-flex">
@@ -221,7 +320,7 @@
                                 </div>
                                 <div class="ps-3">
                                     <h6>Professional & Expert</h6>
-                                    <span>Er Jassi is professional, offers hospitality to customers and makes your car feel like a SPA</span>
+                                    <span>Er. Jassi is professional, offers hospitality to customers, and makes your car feel like it's at a SPA</span>
                                 </div>
                             </div>
                         </div>
@@ -232,7 +331,7 @@
                                 </div>
                                 <div class="ps-3">
                                     <h6>Quality Servicing Center</h6>
-                                    <span>Quality servicing ensures a vehicle's performance and longevity through expert repairs and meticulous maintenance that restore it to peak condition</span>
+                                    <span>Quality servicing ensures your vehicle's performance and longevity through expert repairs and meticulous maintenance</span>
                                 </div>
                             </div>
                         </div>
@@ -242,8 +341,8 @@
                                     <span class="fw-bold text-secondary">03</span>
                                 </div>
                                 <div class="ps-3">
-                                    <h6>Awards Winning Workers</h6>
-                                    <span>Seniors workers are of a vintage of 50+ exlempory experience</span>
+                                    <h6>Award-Winning Workers</h6>
+                                    <span>Senior workers with a vintage of 50+ years of exemplary experience</span>
                                 </div>
                             </div>
                         </div>
@@ -254,7 +353,6 @@
         </div>
     </div>
     <!-- About End -->
-
 
     <!-- Fact Start -->
     <div class="container-fluid fact bg-dark my-5 py-5">
@@ -278,13 +376,12 @@
                 <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.7s">
                     <i class="fa fa-car fa-2x text-white mb-3"></i>
                     <h2 class="text-white mb-2" data-toggle="counter-up">1410</h2>
-                    <p class="text-white mb-0">Compleate Projects</p>
+                    <p class="text-white mb-0">Complete Projects</p>
                 </div>
             </div>
         </div>
     </div>
     <!-- Fact End -->
-
 
     <!-- Service Start -->
     <div class="container-xxl service py-5">
@@ -308,9 +405,13 @@
                             <i class="fa fa-cog fa-2x me-3"></i>
                             <h4 class="m-0">Tires Replacement</h4>
                         </button>
-                        <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-0" data-bs-toggle="pill" data-bs-target="#tab-pane-4" type="button">
+                        <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-4" data-bs-toggle="pill" data-bs-target="#tab-pane-4" type="button">
                             <i class="fa fa-oil-can fa-2x me-3"></i>
                             <h4 class="m-0">Oil Changing</h4>
+                        </button>
+                        <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-0" data-bs-toggle="pill" data-bs-target="#tab-pane-5" type="button">
+                            <i class="fa fa-file-invoice fa-2x me-3"></i>
+                            <h4 class="m-0">Insurance Renewal</h4>
                         </button>
                     </div>
                 </div>
@@ -388,13 +489,30 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="tab-pane fade" id="tab-pane-5">
+                            <div class="row g-4">
+                                <div class="col-md-6" style="min-height: 350px;">
+                                    <div class="position-relative h-100">
+                                        <img class="position-absolute img-fluid w-100 h-100" src="img/service-1.jpg"
+                                            style="object-fit: cover;" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h3 class="mb-3">Hassle-Free Insurance Renewal</h3>
+                                    <p class="mb-4">Get your vehicle insurance renewed quickly and easily with our expert assistance</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>Quick Processing</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>Best Rates</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>Expert Guidance</p>
+                                    <a href="https://www.honestchampions.com/fiscal/insurance" target="_blank" class="btn btn-primary py-3 px-5 mt-3">Renew Now<i class="fa fa-arrow-right ms-3"></i></a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- Service End -->
-
 
     <!-- Booking Start -->
     <div class="container-fluid bg-secondary booking my-5 wow fadeInUp" data-wow-delay="0.1s">
@@ -403,40 +521,57 @@
                 <div class="col-lg-6 py-5">
                     <div class="py-5">
                         <h1 class="text-white mb-4">Certified and Award Winning Car Repair Service Provider</h1>
-                        <p class="text-white mb-0">Eirmod sed tempor lorem ut dolores. Aliquyam sit sadipscing kasd ipsum. Dolor ea et dolore et at sea ea at dolor, justo ipsum duo rebum sea invidunt voluptua. Eos vero eos vero ea et dolore eirmod et. Dolores diam duo invidunt lorem. Elitr ut dolores magna sit. Sea dolore sanctus sed et. Takimata takimata sanctus sed.</p>
+                        <p class="text-white mb-0">At Pal Auto Munirka, we provide top-quality car repair and maintenance services with experienced technicians and modern equipment. Book your service appointment now and experience the difference!</p>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="bg-primary h-100 d-flex flex-column justify-content-center text-center p-5 wow zoomIn" data-wow-delay="0.6s">
                         <h1 class="text-white mb-4">Book For A Service</h1>
-                        <form>
+                        <form id="bookingFormElement" onsubmit="handleSubmit(event)">
                             <div class="row g-3">
                                 <div class="col-12 col-sm-6">
-                                    <input type="text" class="form-control border-0" placeholder="Your Name" style="height: 55px;">
+                                    <input type="text" class="form-control border-0" id="customerName" placeholder="Your Name" style="height: 55px;" required>
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <input type="email" class="form-control border-0" placeholder="Your Email" style="height: 55px;">
+                                    <input type="email" class="form-control border-0" id="customerEmail" placeholder="Your Email" style="height: 55px;" required>
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <select class="form-select border-0" style="height: 55px;">
-                                        <option selected>Select A Service</option>
-                                        <option value="1">Service 1</option>
-                                        <option value="2">Service 2</option>
-                                        <option value="3">Service 3</option>
+                                    <input type="tel" class="form-control border-0" id="customerPhone" placeholder="Your Phone" style="height: 55px;" required pattern="[0-9]{10}">
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <select class="form-select border-0" id="serviceType" style="height: 55px;" required>
+                                        <option selected disabled value="">Select A Service</option>
+                                        <option value="General Servicing">General Servicing</option>
+                                        <option value="Engine Repair">Engine Repair</option>
+                                        <option value="Brake Service">Brake Service</option>
+                                        <option value="Oil Change">Oil Change</option>
+                                        <option value="Tire Replacement">Tire Replacement</option>
+                                        <option value="AC Repair">AC Repair</option>
+                                        <option value="Battery Replacement">Battery Replacement</option>
+                                        <option value="Diagnostic Test">Diagnostic Test</option>
+                                        <option value="Insurance Renewal">Insurance Renewal</option>
+                                        <option value="Other">Other</option>
                                     </select>
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <div class="date" id="date1" data-target-input="nearest">
-                                        <input type="text"
-                                            class="form-control border-0 datetimepicker-input"
-                                            placeholder="Service Date" data-target="#date1" data-toggle="datetimepicker" style="height: 55px;">
-                                    </div>
+                                    <input type="date" class="form-control border-0" id="serviceDate" style="height: 55px;" required>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <input type="time" class="form-control border-0" id="serviceTime" style="height: 55px;" required>
                                 </div>
                                 <div class="col-12">
-                                    <textarea class="form-control border-0" placeholder="Special Request"></textarea>
+                                    <input type="text" class="form-control border-0" id="carModel" placeholder="Car Model (e.g., Honda City 2020)" style="height: 55px;">
                                 </div>
                                 <div class="col-12">
-                                    <button class="btn btn-secondary w-100 py-3" type="submit">Book Now</button>
+                                    <textarea class="form-control border-0" id="specialRequest" placeholder="Special Request"></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-secondary w-100 py-3" type="submit" id="submitBtn">
+                                        <span id="btnText">Book Now</span>
+                                        <span id="btnSpinner" style="display: none;">
+                                            <span class="spinner-border spinner-border-sm me-2"></span>Sending...
+                                        </span>
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -446,7 +581,6 @@
         </div>
     </div>
     <!-- Booking End -->
-
 
     <!-- Team Start -->
     <div class="container-xxl py-5">
@@ -525,7 +659,6 @@
     </div>
     <!-- Team End -->
 
-
     <!-- Testimonial Start -->
     <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container">
@@ -539,7 +672,7 @@
                     <h5 class="mb-0">Ricky Jha</h5>
                     <p>Khana Khazana Restaurant Owner</p>
                     <div class="testimonial-text bg-light text-center p-4">
-                    <p class="mb-0">Focus on Quality and Value: "I chose Pal Auto for my car service and was very happy. They charged a reasonable price, did a thorough job including cleaning, and used genuine spare parts. The work was really good and completed within a day."</p>
+                    <p class="mb-0">I chose Pal Auto for my car service and was very happy. They charged a reasonable price, did a thorough job including cleaning, and used genuine spare parts. The work was really good and completed within a day.</p>
                     </div>
                 </div>
                 <div class="testimonial-item text-center">
@@ -547,7 +680,7 @@
                     <h5 class="mb-0">Raghu</h5>
                     <p>Delhi Police Personnel</p>
                     <div class="testimonial-text bg-light text-center p-4">
-                    <p class="mb-0">Expertise and Satisfaction: "The team at Pal Auto did an awesome job on my car's suspension. Jassi, the owner, is great at ensuring customer satisfaction. I'm very happy with their work, which was mind-blowing</p>
+                    <p class="mb-0">The team at Pal Auto did an awesome job on my car's suspension. Jassi, the owner, is great at ensuring customer satisfaction. I'm very happy with their work, which was mind-blowing.</p>
                     </div>
                 </div>
                 <div class="testimonial-item text-center">
@@ -555,22 +688,21 @@
                     <h5 class="mb-0">Manmohan Sharma</h5>
                     <p>Logistics Business Owner & Insurance Advisor</p>
                     <div class="testimonial-text bg-light text-center p-4">
-                    <p class="mb-0">Honest and Reliable Service: "Had a great experience here. The rates are good and manageable, and the service was very prompt and reliable. They provide excellent hospitality and are very trustworthy."</p>
+                    <p class="mb-0">Had a great experience here. The rates are good and manageable, and the service was very prompt and reliable. They provide excellent hospitality and are very trustworthy.</p>
                     </div>
                 </div>
                 <div class="testimonial-item text-center">
                     <img class="bg-light rounded-circle p-2 mx-auto mb-3" src="img/testimonial-4.jpg" style="width: 80px; height: 80px;">
                     <h5 class="mb-0">Col. S Singh</h5>
-                    <p>Indian Army Vetran</p>
+                    <p>Indian Army Veteran</p>
                     <div class="testimonial-text bg-light text-center p-4">
-                    <p class="mb-0">Positive Experience: "My car is running smoothly after the service at Pal Auto. The staff is polite, knowledgeable, and provides a clear explanation of the work done. They are efficient and professional</p>
+                    <p class="mb-0">My car is running smoothly after the service at Pal Auto. The staff is polite, knowledgeable, and provides a clear explanation of the work done. They are efficient and professional.</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- Testimonial End -->
-
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
@@ -579,7 +711,7 @@
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-light mb-4">Address</h4>
                     <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>20A, Kartar Market Munirka, New Delhi-110067</p>
-                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+91-70423423920</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+91-7042342392</p>
                     <p class="mb-2"><i class="fa fa-envelope me-3"></i>dhirsaab@gmail.com</p>
                     <div class="d-flex pt-2">
                         <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
@@ -590,10 +722,10 @@
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-light mb-4">Opening Hours</h4>
-                    <h6 class="text-light">Wednesday - Monday:</h6>
+                    <h6 class="text-light">Tuesday - Saturday:</h6>
                     <p class="mb-4">09.30 AM - 07.30 PM</p>
-                    <h6 class="text-light">Tuesday:</h6>
-                    <p class="mb-0">09.00 AM - 12.00 PM</p>
+                    <h6 class="text-light">Sunday - Monday:</h6>
+                    <p class="mb-0">09.30 AM - 08.30 PM</p>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-light mb-4">Services</h4>
@@ -601,11 +733,12 @@
                     <a class="btn btn-link" href="">Engine Servicing</a>
                     <a class="btn btn-link" href="">Tires Replacement</a>
                     <a class="btn btn-link" href="">Oil Changing</a>
-                    <a class="btn btn-link" href="">Vacuam Cleaning</a>
+                    <a class="btn btn-link" href="">Vacuum Cleaning</a>
+                    <a class="btn btn-link" href="https://www.honestchampions.com/fiscal/insurance">Insurance Renewal</a>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-light mb-4">Newsletter</h4>
-                    <p>Keep yourself updated with our maintainance newsletters. Enroll Now</p>
+                    <p>Keep yourself updated with our maintenance newsletters. Enroll Now</p>
                     <div class="position-relative mx-auto" style="max-width: 400px;">
                         <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
                         <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
@@ -618,8 +751,6 @@
                 <div class="row">
                     <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
                         &copy; <a class="border-bottom" href="#">Pal Auto Munirka</a>, All Right Reserved.
-
-                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
                         Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
                         <br>Distributed By: <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
                     </div>
@@ -637,10 +768,8 @@
     </div>
     <!-- Footer End -->
 
-
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -656,6 +785,129 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <!-- Booking System -->
+    <script>
+        // EmailJS Configuration
+        const EMAILJS_CONFIG = {
+            publicKey: 'sEQwex5V8-qZeJkb5',
+            serviceId: 'service_u89w1lh',
+            templateId: 'template_fdrhixh'
+        };
+        
+        // Initialize EmailJS
+        (function() {
+            emailjs.init(EMAILJS_CONFIG.publicKey);
+        })();
+
+        // Store bookings
+        let bookings = [];
+
+        // Set minimum date to today
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('serviceDate').min = new Date().toISOString().split('T')[0];
+        });
+
+        // Handle form submission
+        async function handleSubmit(event) {
+            event.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const btnSpinner = document.getElementById('btnSpinner');
+            
+            submitBtn.disabled = true;
+            btnText.style.display = 'none';
+            btnSpinner.style.display = 'inline';
+
+            const name = document.getElementById('customerName').value;
+            const email = document.getElementById('customerEmail').value;
+            const phone = document.getElementById('customerPhone').value;
+            const service = document.getElementById('serviceType').value;
+            const date = document.getElementById('serviceDate').value;
+            const time = document.getElementById('serviceTime').value;
+            const carModel = document.getElementById('carModel').value;
+            const specialRequest = document.getElementById('specialRequest').value;
+
+            const booking = {
+                id: Date.now(),
+                name, email, phone, service, date, time, carModel, specialRequest,
+                timestamp: new Date().toLocaleString('en-IN')
+            };
+
+            bookings.push(booking);
+
+            const templateParams = {
+                customer_name: name,
+                customer_email: email,
+                customer_phone: phone,
+                service_type: service,
+                service_date: new Date(date).toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' }),
+                service_time: time,
+                car_model: carModel || 'Not specified',
+                special_request: specialRequest || 'None',
+                booking_time: new Date().toLocaleString('en-IN'),
+                booking_id: booking.id,
+                phone_1: '+918588801785',
+                phone_2: '+917042342392'
+            };
+
+            try {
+                await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, templateParams);
+                document.getElementById('customerPhoneDisplay').textContent = phone;
+                showSuccess();
+                document.getElementById('bookingFormElement').reset();
+            } catch (error) {
+                showError('Failed to send booking. Please call us at +91-7042342392');
+            } finally {
+                submitBtn.disabled = false;
+                btnText.style.display = 'inline';
+                btnSpinner.style.display = 'none';
+            }
+        }
+
+        function showSuccess() {
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('successMessage').style.display = 'block';
+        }
+
+        function showError(msg) {
+            document.getElementById('errorText').textContent = msg;
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('errorMessage').style.display = 'block';
+        }
+
+        function closeMessages() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+
+        document.getElementById('overlay').addEventListener('click', closeMessages);
+
+        function exportBookings() {
+            console.table(bookings);
+            return bookings;
+        }
+
+        function downloadBookingsCSV() {
+            if (bookings.length === 0) return alert('No bookings');
+            let csv = 'ID,Name,Email,Phone,Service,Date,Time,Car,Request,Timestamp\n';
+            bookings.forEach(b => {
+                csv += `${b.id},"${b.name}","${b.email}","${b.phone}","${b.service}","${b.date}","${b.time}","${b.carModel||'N/A'}","${b.specialRequest||'None'}","${b.timestamp}"\n`;
+            });
+            const blob = new Blob([csv], {type: 'text/csv'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `bookings-${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        window.exportBookings = exportBookings;
+        window.downloadBookingsCSV = downloadBookingsCSV;
+    </script>
 </body>
 
 </html>
