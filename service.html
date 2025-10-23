@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Pal Auto Munirka - Car Repair HTML Template</title>
+    <title>Services - Pal Auto Munirka</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -30,9 +30,105 @@
 
     <!-- Template Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
+    
+    <!-- EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
+    <style>
+        /* Brand Color Overrides */
+        .text-primary {
+            color: #FF6A28 !important;
+        }
+        
+        .bg-primary {
+            background-color: #FF6A28 !important;
+        }
+        
+        .btn-primary {
+            background-color: #FF6A28 !important;
+            border-color: #FF6A28 !important;
+        }
+        
+        .btn-primary:hover,
+        .btn-primary:focus {
+            background-color: #e55a1f !important;
+            border-color: #e55a1f !important;
+        }
+        
+        .bg-secondary {
+            background-color: #231E1D !important;
+        }
+        
+        .btn-secondary {
+            background-color: #231E1D !important;
+            border-color: #231E1D !important;
+        }
+        
+        .btn-secondary:hover,
+        .btn-secondary:focus {
+            background-color: #3a3533 !important;
+            border-color: #3a3533 !important;
+        }
+        
+        .navbar-light .navbar-nav .nav-link:hover,
+        .navbar-light .navbar-nav .nav-link.active {
+            color: #FF6A28 !important;
+        }
+        
+        .service .nav-pills .nav-link.active,
+        .service .nav-pills .nav-link:hover {
+            background: #FF6A28 !important;
+        }
+        
+        /* Success/Error Messages */
+        .success-message, .error-message {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            z-index: 9999;
+            text-align: center;
+            max-width: 500px;
+        }
+        
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 9998;
+        }
+    </style>
 </head>
 
 <body>
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+    
+    <!-- Success Message -->
+    <div class="success-message" id="successMessage">
+        <i class="fas fa-check-circle text-success" style="font-size: 60px;"></i>
+        <h3 class="mt-3">Booking Submitted Successfully!</h3>
+        <p>Your booking details have been sent to our team. We'll contact you shortly at <strong id="customerPhoneDisplay"></strong>.</p>
+        <button class="btn btn-primary" onclick="closeMessages()">Close</button>
+    </div>
+    
+    <!-- Error Message -->
+    <div class="error-message" id="errorMessage">
+        <i class="fas fa-exclamation-circle text-danger" style="font-size: 60px;"></i>
+        <h3 class="mt-3">Booking Failed</h3>
+        <p id="errorText">Failed to send booking. Please try again or call us directly.</p>
+        <button class="btn btn-primary" onclick="closeMessages()">Close</button>
+    </div>
+
     <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
@@ -41,24 +137,225 @@
     </div>
     <!-- Spinner End -->
 
-
     <!-- Topbar Start -->
     <div class="container-fluid bg-light p-0">
         <div class="row gx-0 d-none d-lg-flex">
             <div class="col-lg-7 px-5 text-start">
-                <div class="h-100 d-inline-flex align-items-center py-3 me-4">
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-light mb-4">Address</h4>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i><a href="https://maps.app.goo.gl/h9NcExVCxoowknz38" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">20A, Kartar Market Munirka, New Delhi-110067</a></p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+91-7042342392</p>
+                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>dhirsaab@gmail.com</p>
+                    <div class="d-flex pt-2">
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
+                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-light mb-4">Opening Hours</h4>
+                    <h6 class="text-light">Tuesday - Saturday:</h6>
+                    <p class="mb-4">09.30 AM - 07.30 PM</p>
+                    <h6 class="text-light">Sunday - Monday:</h6>
+                    <p class="mb-0">09.30 AM - 08.30 PM</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-light mb-4">Services</h4>
+                    <a class="btn btn-link" href="">Diagnostic Test</a>
+                    <a class="btn btn-link" href="">Engine Servicing</a>
+                    <a class="btn btn-link" href="">Tires Replacement</a>
+                    <a class="btn btn-link" href="">Oil Changing</a>
+                    <a class="btn btn-link" href="">Denting & Painting</a>
+                    <a class="btn btn-link" href="https://www.honestchampions.com/fiscal/insurance">Insurance Renewal</a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="text-light mb-4">Newsletter</h4>
+                    <p>Keep yourself updated with our maintenance newsletters. Enroll Now</p>
+                    <div class="position-relative mx-auto" style="max-width: 400px;">
+                        <input type="email" id="newsletterEmail" name="newsletter_email" class="form-control border-0 w-100 py-3 ps-4 pe-5" placeholder="Your email" required>
+                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        &copy; <a class="border-bottom" href="#">Pal Auto Munirka</a>, All Right Reserved.
+                        Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
+                        <br>Distributed By: <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="">Home</a>
+                            <a href="">Cookies</a>
+                            <a href="">Help</a>
+                            <a href="">FQAs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+
+    <!-- Booking System -->
+    <script>
+        // EmailJS Configuration
+        const EMAILJS_CONFIG = {
+            publicKey: 'sEQwex5V8-qZeJkb5',
+            serviceId: 'service_u89w1lh',
+            templateId: 'template_fdrhixh'
+        };
+        
+        // Initialize EmailJS
+        (function() {
+            emailjs.init(EMAILJS_CONFIG.publicKey);
+        })();
+
+        // Store bookings
+        let bookings = [];
+
+        // Set minimum date to today
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('serviceDate').min = new Date().toISOString().split('T')[0];
+        });
+
+        // Handle form submission
+        async function handleSubmit(event) {
+            event.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const btnSpinner = document.getElementById('btnSpinner');
+            
+            submitBtn.disabled = true;
+            btnText.style.display = 'none';
+            btnSpinner.style.display = 'inline';
+
+            const name = document.getElementById('customerName').value;
+            const email = document.getElementById('customerEmail').value;
+            const phone = document.getElementById('customerPhone').value;
+            const service = document.getElementById('serviceType').value;
+            const date = document.getElementById('serviceDate').value;
+            const time = document.getElementById('serviceTime').value;
+            const carModel = document.getElementById('carModel').value;
+            const specialRequest = document.getElementById('specialRequest').value;
+
+            const booking = {
+                id: Date.now(),
+                name, email, phone, service, date, time, carModel, specialRequest,
+                timestamp: new Date().toLocaleString('en-IN')
+            };
+
+            bookings.push(booking);
+
+            const templateParams = {
+                customer_name: name,
+                customer_email: email,
+                customer_phone: phone,
+                service_type: service,
+                service_date: new Date(date).toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' }),
+                service_time: time,
+                car_model: carModel || 'Not specified',
+                special_request: specialRequest || 'None',
+                booking_time: new Date().toLocaleString('en-IN'),
+                booking_id: booking.id,
+                phone_1: '+918588801785',
+                phone_2: '+917042342392'
+            };
+
+            try {
+                await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, templateParams);
+                document.getElementById('customerPhoneDisplay').textContent = phone;
+                showSuccess();
+                document.getElementById('bookingFormElement').reset();
+            } catch (error) {
+                showError('Failed to send booking. Please call us at +91-7042342392');
+            } finally {
+                submitBtn.disabled = false;
+                btnText.style.display = 'inline';
+                btnSpinner.style.display = 'none';
+            }
+        }
+
+        function showSuccess() {
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('successMessage').style.display = 'block';
+        }
+
+        function showError(msg) {
+            document.getElementById('errorText').textContent = msg;
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('errorMessage').style.display = 'block';
+        }
+
+        function closeMessages() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+
+        document.getElementById('overlay').addEventListener('click', closeMessages);
+
+        function exportBookings() {
+            console.table(bookings);
+            return bookings;
+        }
+
+        function downloadBookingsCSV() {
+            if (bookings.length === 0) return alert('No bookings');
+            let csv = 'ID,Name,Email,Phone,Service,Date,Time,Car,Request,Timestamp\n';
+            bookings.forEach(b => {
+                csv += `${b.id},"${b.name}","${b.email}","${b.phone}","${b.service}","${b.date}","${b.time}","${b.carModel||'N/A'}","${b.specialRequest||'None'}","${b.timestamp}"\n`;
+            });
+            const blob = new Blob([csv], {type: 'text/csv'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `bookings-${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        window.exportBookings = exportBookings;
+        window.downloadBookingsCSV = downloadBookingsCSV;
+    </script>
+</body>
+
+</html>h-100 d-inline-flex align-items-center py-3 me-4">
                     <small class="fa fa-map-marker-alt text-primary me-2"></small>
-                    <small>20A, kartar Market Munirka, New Delhi-110067</small>
+                    <small><a href="https://maps.app.goo.gl/h9NcExVCxoowknz38" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">20A, Kartar Market Munirka, New Delhi-110067</a></small>
                 </div>
                 <div class="h-100 d-inline-flex align-items-center py-3">
                     <small class="far fa-clock text-primary me-2"></small>
-                    <small>Mon - Fri : 09.00 AM - 09.00 PM</small>
+                    <small>Tue - Sat : 09.30 AM - 07.30 PM & Sun - Mon : 09:30AM - 08:30PM</small>
                 </div>
             </div>
             <div class="col-lg-5 px-5 text-end">
                 <div class="h-100 d-inline-flex align-items-center py-3 me-4">
                     <small class="fa fa-phone-alt text-primary me-2"></small>
-                    <small>+012 345 6789</small>
+                    <small>+917042342392</small>
                 </div>
                 <div class="h-100 d-inline-flex align-items-center">
                     <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-facebook-f"></i></a>
@@ -70,7 +367,6 @@
         </div>
     </div>
     <!-- Topbar End -->
-
 
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
@@ -96,11 +392,10 @@
                 </div>
                 <a href="contact.html" class="nav-item nav-link">Contact</a>
             </div>
-            <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Get A Quote<i class="fa fa-arrow-right ms-3"></i></a>
+            <a href="booking.html" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Get A Quote<i class="fa fa-arrow-right ms-3"></i></a>
         </div>
     </nav>
     <!-- Navbar End -->
-
 
     <!-- Page Header Start -->
     <div class="container-fluid page-header mb-5 p-0" style="background-image: url(img/carousel-bg-2.jpg);">
@@ -109,7 +404,7 @@
                 <h1 class="display-3 text-white mb-3 animated slideInDown">Services</h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-center text-uppercase">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                         <li class="breadcrumb-item"><a href="#">Pages</a></li>
                         <li class="breadcrumb-item text-white active" aria-current="page">Services</li>
                     </ol>
@@ -118,7 +413,6 @@
         </div>
     </div>
     <!-- Page Header End -->
-
 
     <!-- Service Start -->
     <div class="container-xxl service py-5">
@@ -142,9 +436,17 @@
                             <i class="fa fa-cog fa-2x me-3"></i>
                             <h4 class="m-0">Tires Replacement</h4>
                         </button>
-                        <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-0" data-bs-toggle="pill" data-bs-target="#tab-pane-4" type="button">
+                        <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-4" data-bs-toggle="pill" data-bs-target="#tab-pane-4" type="button">
                             <i class="fa fa-oil-can fa-2x me-3"></i>
                             <h4 class="m-0">Oil Changing</h4>
+                        </button>
+                        <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-4" data-bs-toggle="pill" data-bs-target="#tab-pane-5" type="button">
+                            <i class="fa fa-paint-brush fa-2x me-3"></i>
+                            <h4 class="m-0">Denting & Painting</h4>
+                        </button>
+                        <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-0" data-bs-toggle="pill" data-bs-target="#tab-pane-6" type="button">
+                            <i class="fa fa-file-invoice fa-2x me-3"></i>
+                            <h4 class="m-0">Insurance Renewal</h4>
                         </button>
                     </div>
                 </div>
@@ -160,11 +462,11 @@
                                 </div>
                                 <div class="col-md-6">
                                     <h3 class="mb-3">15 Years Of Experience In Auto Servicing</h3>
-                                    <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
+                                    <p class="mb-4">With 15 years under the hood, we have the mechanical expertise and trusted craftsmanship to get your vehicle running perfectly</p>
                                     <p><i class="fa fa-check text-success me-3"></i>Quality Servicing</p>
                                     <p><i class="fa fa-check text-success me-3"></i>Expert Workers</p>
                                     <p><i class="fa fa-check text-success me-3"></i>Modern Equipment</p>
-                                    <a href="" class="btn btn-primary py-3 px-5 mt-3">Read More<i class="fa fa-arrow-right ms-3"></i></a>
+                                    <a href="booking.html" class="btn btn-primary py-3 px-5 mt-3">Book Now<i class="fa fa-arrow-right ms-3"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -177,12 +479,12 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <h3 class="mb-3">15 Years Of Experience In Auto Servicing</h3>
-                                    <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
-                                    <p><i class="fa fa-check text-success me-3"></i>Quality Servicing</p>
-                                    <p><i class="fa fa-check text-success me-3"></i>Expert Workers</p>
-                                    <p><i class="fa fa-check text-success me-3"></i>Modern Equipment</p>
-                                    <a href="" class="btn btn-primary py-3 px-5 mt-3">Read More<i class="fa fa-arrow-right ms-3"></i></a>
+                                    <h3 class="mb-3">Professional Engine Servicing</h3>
+                                    <p class="mb-4">Our expert technicians provide comprehensive engine servicing to keep your vehicle running smoothly and efficiently</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>Complete Engine Diagnostics</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>Genuine Spare Parts</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>Warranty on Service</p>
+                                    <a href="booking.html" class="btn btn-primary py-3 px-5 mt-3">Book Now<i class="fa fa-arrow-right ms-3"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -195,12 +497,12 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <h3 class="mb-3">15 Years Of Experience In Auto Servicing</h3>
-                                    <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
-                                    <p><i class="fa fa-check text-success me-3"></i>Quality Servicing</p>
-                                    <p><i class="fa fa-check text-success me-3"></i>Expert Workers</p>
-                                    <p><i class="fa fa-check text-success me-3"></i>Modern Equipment</p>
-                                    <a href="" class="btn btn-primary py-3 px-5 mt-3">Read More<i class="fa fa-arrow-right ms-3"></i></a>
+                                    <h3 class="mb-3">Premium Tire Replacement Services</h3>
+                                    <p class="mb-4">Get the best tires for your vehicle with our expert tire replacement and wheel alignment services</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>All Major Brands Available</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>Free Wheel Alignment</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>Competitive Pricing</p>
+                                    <a href="booking.html" class="btn btn-primary py-3 px-5 mt-3">Book Now<i class="fa fa-arrow-right ms-3"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -213,12 +515,48 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <h3 class="mb-3">15 Years Of Experience In Auto Servicing</h3>
-                                    <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
-                                    <p><i class="fa fa-check text-success me-3"></i>Quality Servicing</p>
-                                    <p><i class="fa fa-check text-success me-3"></i>Expert Workers</p>
-                                    <p><i class="fa fa-check text-success me-3"></i>Modern Equipment</p>
-                                    <a href="" class="btn btn-primary py-3 px-5 mt-3">Read More<i class="fa fa-arrow-right ms-3"></i></a>
+                                    <h3 class="mb-3">Quick Oil Change Service</h3>
+                                    <p class="mb-4">Regular oil changes are essential for engine health. We use premium quality engine oils for optimal performance</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>Premium Quality Oils</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>Quick 30-Minute Service</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>Free Oil Filter Check</p>
+                                    <a href="booking.html" class="btn btn-primary py-3 px-5 mt-3">Book Now<i class="fa fa-arrow-right ms-3"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab-pane-5">
+                            <div class="row g-4">
+                                <div class="col-md-6" style="min-height: 350px;">
+                                    <div class="position-relative h-100">
+                                        <img class="position-absolute img-fluid w-100 h-100" src="img/service-3.jpg"
+                                            style="object-fit: cover;" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h3 class="mb-3">Expert Denting & Painting</h3>
+                                    <p class="mb-4">Restore your car's beauty with our professional denting and painting services. We make your car look brand new!</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>Advanced Paint Technology</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>Color Matching Guarantee</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>Insurance Claim Support</p>
+                                    <a href="booking.html" class="btn btn-primary py-3 px-5 mt-3">Book Now<i class="fa fa-arrow-right ms-3"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab-pane-6">
+                            <div class="row g-4">
+                                <div class="col-md-6" style="min-height: 350px;">
+                                    <div class="position-relative h-100">
+                                        <img class="position-absolute img-fluid w-100 h-100" src="img/service-1.jpg"
+                                            style="object-fit: cover;" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <h3 class="mb-3">Hassle-Free Insurance Renewal</h3>
+                                    <p class="mb-4">Get your vehicle insurance renewed quickly and easily with our expert assistance and best rates</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>Quick Processing</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>Best Rates Guarantee</p>
+                                    <p><i class="fa fa-check text-success me-3"></i>Expert Guidance</p>
+                                    <a href="https://www.honestchampions.com/fiscal/insurance" target="_blank" class="btn btn-primary py-3 px-5 mt-3">Renew Now<i class="fa fa-arrow-right ms-3"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -229,7 +567,6 @@
     </div>
     <!-- Service End -->
 
-
     <!-- Booking Start -->
     <div class="container-fluid bg-secondary booking my-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container">
@@ -237,40 +574,58 @@
                 <div class="col-lg-6 py-5">
                     <div class="py-5">
                         <h1 class="text-white mb-4">Certified and Award Winning Car Repair Service Provider</h1>
-                        <p class="text-white mb-0">Eirmod sed tempor lorem ut dolores. Aliquyam sit sadipscing kasd ipsum. Dolor ea et dolore et at sea ea at dolor, justo ipsum duo rebum sea invidunt voluptua. Eos vero eos vero ea et dolore eirmod et. Dolores diam duo invidunt lorem. Elitr ut dolores magna sit. Sea dolore sanctus sed et. Takimata takimata sanctus sed.</p>
+                        <p class="text-white mb-0">At Pal Auto Munirka, we provide top-quality car repair and maintenance services with experienced technicians and modern equipment. Book your service appointment now and experience the difference!</p>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="bg-primary h-100 d-flex flex-column justify-content-center text-center p-5 wow zoomIn" data-wow-delay="0.6s">
                         <h1 class="text-white mb-4">Book For A Service</h1>
-                        <form>
+                        <form id="bookingFormElement" onsubmit="handleSubmit(event)">
                             <div class="row g-3">
                                 <div class="col-12 col-sm-6">
-                                    <input type="text" class="form-control border-0" placeholder="Your Name" style="height: 55px;">
+                                    <input type="text" class="form-control border-0" id="customerName" placeholder="Your Name" style="height: 55px;" required>
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <input type="email" class="form-control border-0" placeholder="Your Email" style="height: 55px;">
+                                    <input type="email" class="form-control border-0" id="customerEmail" placeholder="Your Email" style="height: 55px;" required>
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <select class="form-select border-0" style="height: 55px;">
-                                        <option selected>Select A Service</option>
-                                        <option value="1">Service 1</option>
-                                        <option value="2">Service 2</option>
-                                        <option value="3">Service 3</option>
+                                    <input type="tel" class="form-control border-0" id="customerPhone" placeholder="Your Phone" style="height: 55px;" required pattern="[0-9]{10}">
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <select class="form-select border-0" id="serviceType" style="height: 55px;" required>
+                                        <option selected disabled value="">Select A Service</option>
+                                        <option value="General Servicing">General Servicing</option>
+                                        <option value="Engine Repair">Engine Repair</option>
+                                        <option value="Brake Service">Brake Service</option>
+                                        <option value="Oil Change">Oil Change</option>
+                                        <option value="Tire Replacement">Tire Replacement</option>
+                                        <option value="AC Repair">AC Repair</option>
+                                        <option value="Battery Replacement">Battery Replacement</option>
+                                        <option value="Diagnostic Test">Diagnostic Test</option>
+                                        <option value="Denting & Painting">Denting & Painting</option>
+                                        <option value="Insurance Renewal">Insurance Renewal</option>
+                                        <option value="Other">Other</option>
                                     </select>
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <div class="date" id="date1" data-target-input="nearest">
-                                        <input type="text"
-                                            class="form-control border-0 datetimepicker-input"
-                                            placeholder="Service Date" data-target="#date1" data-toggle="datetimepicker" style="height: 55px;">
-                                    </div>
+                                    <input type="date" class="form-control border-0" id="serviceDate" style="height: 55px;" required>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <input type="time" class="form-control border-0" id="serviceTime" style="height: 55px;" required>
                                 </div>
                                 <div class="col-12">
-                                    <textarea class="form-control border-0" placeholder="Special Request"></textarea>
+                                    <input type="text" class="form-control border-0" id="carModel" placeholder="Car Model (e.g., Honda City 2020)" style="height: 55px;">
                                 </div>
                                 <div class="col-12">
-                                    <button class="btn btn-secondary w-100 py-3" type="submit">Book Now</button>
+                                    <textarea class="form-control border-0" id="specialRequest" placeholder="Special Request"></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-secondary w-100 py-3" type="submit" id="submitBtn">
+                                        <span id="btnText">Book Now</span>
+                                        <span id="btnSpinner" style="display: none;">
+                                            <span class="spinner-border spinner-border-sm me-2"></span>Sending...
+                                        </span>
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -280,7 +635,6 @@
         </div>
     </div>
     <!-- Booking End -->
-
 
     <!-- Testimonial Start -->
     <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
@@ -292,41 +646,40 @@
             <div class="owl-carousel testimonial-carousel position-relative">
                 <div class="testimonial-item text-center">
                     <img class="bg-light rounded-circle p-2 mx-auto mb-3" src="img/testimonial-1.jpg" style="width: 80px; height: 80px;">
-                    <h5 class="mb-0">Client Name</h5>
-                    <p>Profession</p>
+                    <h5 class="mb-0">Ricky Jha</h5>
+                    <p>Khana Khazana Restaurant Owner</p>
                     <div class="testimonial-text bg-light text-center p-4">
-                    <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
+                    <p class="mb-0">I chose Pal Auto for my car service and was very happy. They charged a reasonable price, did a thorough job including cleaning, and used genuine spare parts. The work was really good and completed within a day.</p>
                     </div>
                 </div>
                 <div class="testimonial-item text-center">
                     <img class="bg-light rounded-circle p-2 mx-auto mb-3" src="img/testimonial-2.jpg" style="width: 80px; height: 80px;">
-                    <h5 class="mb-0">Client Name</h5>
-                    <p>Profession</p>
+                    <h5 class="mb-0">Raghu</h5>
+                    <p>Delhi Police Personnel</p>
                     <div class="testimonial-text bg-light text-center p-4">
-                    <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
+                    <p class="mb-0">The team at Pal Auto did an awesome job on my car's suspension. Jassi, the owner, is great at ensuring customer satisfaction. I'm very happy with their work, which was mind-blowing.</p>
                     </div>
                 </div>
                 <div class="testimonial-item text-center">
                     <img class="bg-light rounded-circle p-2 mx-auto mb-3" src="img/testimonial-3.jpg" style="width: 80px; height: 80px;">
-                    <h5 class="mb-0">Client Name</h5>
-                    <p>Profession</p>
+                    <h5 class="mb-0">Manmohan Sharma</h5>
+                    <p>Logistics Business Owner & Insurance Advisor</p>
                     <div class="testimonial-text bg-light text-center p-4">
-                    <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
+                    <p class="mb-0">Had a great experience here. The rates are good and manageable, and the service was very prompt and reliable. They provide excellent hospitality and are very trustworthy.</p>
                     </div>
                 </div>
                 <div class="testimonial-item text-center">
                     <img class="bg-light rounded-circle p-2 mx-auto mb-3" src="img/testimonial-4.jpg" style="width: 80px; height: 80px;">
-                    <h5 class="mb-0">Client Name</h5>
-                    <p>Profession</p>
+                    <h5 class="mb-0">Col. S Singh</h5>
+                    <p>Indian Army Veteran</p>
                     <div class="testimonial-text bg-light text-center p-4">
-                    <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>
+                    <p class="mb-0">My car is running smoothly after the service at Pal Auto. The staff is polite, knowledgeable, and provides a clear explanation of the work done. They are efficient and professional.</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- Testimonial End -->
-
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
