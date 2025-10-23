@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Engine Oils — Pal Auto Munirka</title>
+  <meta name="description" content="Recommended engine oils by car brand & model — Pal Auto Munirka. Book a service or call for advice." />
+  <style>
+    /* ===== Base / Theme colors (keeps same brand feel) ===== */
+    :root{
+      --brand-blue: #0b64d6; /* primary header/nav */
+      --brand-dark: #052a63;
+      --accent: #e34234;     /* CTA */
+      --muted:#6b7280;
+      --bg:#f7f9fb;
+      --card-bg: #ffffff;
+      --glass: rgba(255,255,255,0.6);
+      --radius: 12px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,#f8fbff 0%,var(--bg) 100%);
+      color:#111827;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* ===== Header (match site style) ===== */
+    .site-header{
+      background: linear-gradient(90deg,var(--brand-blue),#0066cc);
+      color: #fff;
+      padding: 0.8rem 1rem;
+      box-shadow: 0 6px 18px rgba(11,100,214,0.12);
+      position: sticky;
+      top:0;
+      z-index:40;
+    }
+    .nav {
+      max-width:1200px;
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      gap:1rem;
+    }
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:0.6rem;
+      font-weight:700;
+      font-size:1.15rem;
+      letter-spacing:0.2px;
+    }
+    .logo .mark{
+      width:44px;height:44px;border-radius:10px;
+      background:linear-gradient(135deg,#fff,rgba(255,255,255,0.85));
+      color:var(--brand-blue);
+      display:flex;align-items:center;justify-content:center;
+      font-weight:800;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .nav-links{margin-left:auto; display:flex; gap:.6rem; align-items:center;}
+    .nav-links a{color:rgba(255,255,255,0.95); text-decoration:none; padding:8px 10px; border-radius:8px; font-weight:600;}
+    .nav-links a:hover{background: rgba(255,255,255,0.08);}
+
+    /* ===== Hero / Filters area ===== */
+    .hero{
+      max-width:1200px;
+      margin: 20px auto;
+      padding: 18px;
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap:18px;
+      align-items:start;
+    }
+    .hero-card{
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding:18px;
+      box-shadow: 0 6px 18px rgba(17,24,39,0.06);
+    }
+    .hero h1{margin:0 0 6px; color:var(--brand-dark); font-size:1.5rem;}
+    .hero p.lead{margin:0 0 12px; color:var(--muted)}
+    /* Filter box */
+    .filters{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .form-row{display:flex; gap:8px;}
+    .form-row .form-control{flex:1}
+    select.form-control, input.form-control{
+      width:100%;
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid #e6e9ef;
+      background:#fff;
+      font-size:0.95rem;
+      outline:none;
+    }
+    .form-inline{display:flex; gap:8px; align-items:center;}
+    .btn{
+      display:inline-block;
+      padding:10px 14px;
+      border-radius:10px;
+      border:none;
+      cursor:pointer;
+      font-weight:700;
+    }
+    .btn-primary{background:var(--brand-blue); color:#fff}
+    .btn-accent{background:var(--accent); color:#fff}
+
+    /* Promo card (right column) */
+    .promo{
+      background: linear-gradient(180deg,#fff,#fbfbff);
+      border-radius:12px;
+      padding:14px;
+      box-shadow: 0 6px 18px rgba(11,100,214,0.06);
+      text-align:left;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .promo strong{display:block; font-size:1.05rem; color:var(--brand-dark)}
+    .promo small{color:var(--muted)}
+    .contact-
