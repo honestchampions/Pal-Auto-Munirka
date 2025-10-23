@@ -124,4 +124,481 @@
     }
     .promo strong{display:block; font-size:1.05rem; color:var(--brand-dark)}
     .promo small{color:var(--muted)}
-    .contact-
+    .contact-actions{display:flex; gap:8px; margin-top:6px;}
+    .contact-actions a{flex:1; text-decoration:none; text-align:center; padding:10px 12px; border-radius:10px; font-weight:700}
+
+    /* ===== Products area ===== */
+    .content{
+      max-width:1200px;
+      margin:0 auto 80px;
+      padding: 0 18px;
+    }
+    .brand-section{
+      margin:18px 0 26px;
+    }
+    .brand-head{
+      display:flex; align-items:center; gap:12px;
+      margin-bottom:12px;
+    }
+    .brand-head h2{margin:0; color:var(--brand-blue); font-size:1.15rem}
+    .brand-intro{margin:0;color:var(--muted); font-size:.95rem}
+
+    .models-wrap{
+      display:grid;
+      gap:14px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+
+    .model-card{
+      background:var(--card-bg);
+      border-radius:12px;
+      padding:12px;
+      box-shadow: 0 6px 18px rgba(16,24,40,0.04);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      min-height:160px;
+    }
+    .model-card h3{margin:0;color:var(--brand-dark); font-size:1.02rem}
+    .model-info{color:var(--muted); font-size:.92rem}
+    .products-grid{
+      display:grid;
+      gap:10px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .product-card{
+      border-radius:10px;
+      overflow:hidden;
+      background:#fff;
+      border:1px solid #eef2f6;
+      display:flex;
+      flex-direction:column;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .product-card:hover{ transform: translateY(-6px); box-shadow: 0 18px 40px rgba(9,20,50,0.08); }
+    .product-media{ position:relative; height:160px; background:linear-gradient(180deg,#f6f8fb,#fff); display:flex;align-items:center;justify-content:center; padding:8px;}
+    .product-media img{ max-width:100%; max-height:140px; object-fit:contain; display:block; }
+
+    .product-body{ padding:12px; display:flex; flex-direction:column; gap:8px; flex:1;}
+    .product-title{ font-weight:700; color:#0f1724; font-size:.98rem}
+    .product-advantages{ margin:0; padding-left:18px; font-size:.89rem; color:#425066;}
+    .product-actions{ margin-top:auto; display:flex; gap:8px;}
+    .product-actions a{ text-decoration:none; padding:9px 10px; border-radius:10px; font-weight:700; font-size:.95rem; text-align:center; flex:1;}
+    .buy{ background:var(--brand-blue); color:#fff }
+    .more{ background:#eef4ff; color:var(--brand-dark); border:1px solid #e3eeff }
+
+    /* Notice / disclosure */
+    .disclosure{
+      max-width:1200px; margin:18px auto 36px; padding:12px; border-radius:10px;
+      background:linear-gradient(90deg,#fffaf0,#fff); border:1px solid #fff0d4; color:#6b4b00;
+    }
+
+    /* Footer */
+    .site-footer{
+      background: linear-gradient(180deg,#051a4a, #03112d);
+      color:#dbeafe;
+      padding:22px 18px;
+      margin-top:40px;
+    }
+    .footer-inner{ max-width:1200px; margin:0 auto; display:flex; gap:14px; flex-wrap:wrap; align-items:center; justify-content:space-between; }
+    .footer-inner small{ color:#cfe8ff; opacity:.9 }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 980px){
+      .hero{ grid-template-columns: 1fr; padding:12px; gap:12px }
+      .hero .promo{ order:2 }
+    }
+    @media (max-width: 540px){
+      .product-media{ height:140px }
+      .product-media img{ max-height:120px }
+    }
+
+    /* subtle utility */
+    .muted{ color:var(--muted) }
+    .hide{ display:none!important }
+  </style>
+</head>
+<body>
+
+  <!-- ===== Header (matches site nav/brand) ===== -->
+  <header class="site-header">
+    <nav class="nav" role="navigation" aria-label="Main">
+      <div class="logo" aria-hidden="true">
+        <div class="mark">PA</div>
+        <div>
+          <div style="font-size:.95rem">Pal Auto</div>
+          <div style="font-size:.78rem; opacity:.95; margin-top:-4px;">Munirka</div>
+        </div>
+      </div>
+
+      <div class="nav-links" role="menubar" aria-label="Top navigation">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="engine-oils.html" style="background:rgba(255,255,255,0.12); border-radius:8px;">Engine Oils</a>
+        <a href="#contact">Contact</a>
+        <a href="tel:+917042342392" style="display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--brand-blue);padding:8px 12px;border-radius:10px;">📞 70423 42392</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ===== Hero & Filters ===== -->
+  <main>
+    <section class="hero" aria-labelledby="pageTitle">
+      <div class="hero-card" id="left-hero">
+        <h1 id="pageTitle">Engine Oils for Popular Car Brands & Models</h1>
+        <p class="lead">Select your car brand and model to see recommended engine oils with product highlights. All links are affiliate-ready — replace them with your Amazon links.</p>
+
+        <div class="filters" aria-label="Search and filter products">
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <div style="flex:1; min-width:180px;">
+              <label for="brandFilter" class="muted" style="font-size:.85rem">Car Brand</label>
+              <select id="brandFilter" class="form-control" aria-controls="modelsList">
+                <option value="">All Brands</option>
+                <option>Maruti Suzuki</option>
+                <option>Hyundai</option>
+                <option>Tata</option>
+                <option>Mahindra</option>
+                <option>Kia</option>
+                <option>Honda</option>
+                <option>Toyota</option>
+              </select>
+            </div>
+
+            <div style="flex:1; min-width:180px;">
+              <label for="modelFilter" class="muted" style="font-size:.85rem">Model</label>
+              <select id="modelFilter" class="form-control" disabled>
+                <option value="">All Models</option>
+              </select>
+            </div>
+
+            <div style="flex:1; min-width:180px;">
+              <label for="searchOil" class="muted" style="font-size:.85rem">Search Oils / Products</label>
+              <input id="searchOil" class="form-control" placeholder="Search (e.g. Castrol, Shell, Mobil)" />
+            </div>
+          </div>
+
+          <div style="display:flex; gap:8px; margin-top:8px;">
+            <button id="clearFilters" class="btn btn-primary">Reset Filters</button>
+            <div style="flex:1"></div>
+            <small class="muted" style="align-self:center">Tip: Start by selecting a Brand</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROMO (right) -->
+      <aside class="promo" aria-label="Promotional contact">
+        <strong>Special — Pal Auto Munirka (Munirka, New Delhi)</strong>
+        <small>Limited time: <strong>Free Labour</strong> on engine oil change with purchase of 4L (T&C apply).</small>
+        <div>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <div style="width:64px; height:64px; border-radius:10px; background:linear-gradient(135deg,#fff,#f3f7ff); display:flex;align-items:center;justify-content:center; font-weight:800; color:var(--brand-blue)">🔧</div>
+            <div>
+              <div style="font-weight:700">Book Your Service</div>
+              <div class="muted" style="font-size:.92rem">Expert mechanics • Genuine oils • Fast turnaround</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-actions" role="group" aria-label="Contact">
+          <a class="btn btn-accent" href="tel:+917042342392">📞 Call 70423 42392</a>
+          <a class="btn btn-primary" href="https://wa.me/917042342392" target="_blank" rel="noopener">💬 WhatsApp</a>
+        </div>
+
+        <div style="font-size:.92rem; color:var(--muted); margin-top:6px">
+          <strong>Workshop:</strong> Pal Auto Munirka, Gate 1, Main Road, Munirka, New Delhi.
+        </div>
+      </aside>
+    </section>
+
+    <!-- ===== Products listing (data-driven) ===== -->
+    <section class="content" id="productsContent">
+      <!-- We'll render brand sections here. Each .brand-section has model-cards and product-cards with data attributes -->
+      <!-- For maintainability the data below comes from your uploaded Engine oils file; each product card has data-brand & data-model attributes. -->
+      
+      <!-- ===== BRAND: Maruti Suzuki ===== -->
+      <div class="brand-section" data-brand="Maruti Suzuki">
+        <div class="brand-head">
+          <h2>Maruti Suzuki</h2>
+          <div class="brand-intro muted">Common models and recommended oils for city driving and performance.</div>
+        </div>
+
+        <div class="models-wrap">
+          <!-- Swift -->
+          <article class="model-card" data-model="Swift">
+            <h3>Swift</h3>
+            <p class="model-info">Recommended: 5W-30 Synthetic (≈3.1L). Ideal for petrol city driving.</p>
+            <div class="products-grid">
+              <div class="product-card" data-brand="Maruti Suzuki" data-model="Swift" data-title="Shell Helix HX8 5W-30">
+                <div class="product-media"><img src="https://m.media-amazon.com/images/I/71ca7JJvF-L._AC_UF1000,1000_QL80_.jpg" alt="Shell Helix HX8 5W-30"></div>
+                <div class="product-body">
+                  <div class="product-title">Shell Helix HX8 5W-30 Fully Synthetic</div>
+                  <ul class="product-advantages">
+                    <li>Adaptive Flexi-Molecule technology</li>
+                    <li>Improved fuel economy & wear protection</li>
+                  </ul>
+                  <div class="product-actions">
+                    <a href="#affiliate-link-1" class="buy">Buy on Amazon</a>
+                    <a href="#" class="more">Details</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="product-card" data-brand="Maruti Suzuki" data-model="Swift" data-title="Castrol Magnatec 5W-30">
+                <div class="product-media"><img src="https://m.media-amazon.com/images/I/61pIXcFn-OL.jpg" alt="Castrol Magnatec 5W-30"></div>
+                <div class="product-body">
+                  <div class="product-title">Castrol Magnatec Stop-Start 5W-30</div>
+                  <ul class="product-advantages">
+                    <li>Instant protection for stop-start traffic</li>
+                    <li>Reduced wear & better city fuel economy</li>
+                  </ul>
+                  <div class="product-actions">
+                    <a href="#affiliate-link-2" class="buy">Buy on Amazon</a>
+                    <a href="#" class="more">Details</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Dzire -->
+          <article class="model-card" data-model="Dzire">
+            <h3>Dzire</h3>
+            <p class="model-info">Recommended: 0W-20 Synthetic (≈3.2L) — mileage-focused petrol variant.</p>
+            <div class="products-grid">
+              <div class="product-card" data-brand="Maruti Suzuki" data-model="Dzire" data-title="Castrol Magnatec 0W-20">
+                <div class="product-media"><img src="https://m.media-amazon.com/images/I/714WBxqxukL.jpg" alt="Castrol Magnatec 0W-20"></div>
+                <div class="product-body">
+                  <div class="product-title">Castrol Magnatec 0W-20 Full Synthetic</div>
+                  <ul class="product-advantages"><li>Cold-start protection & fuel savings</li><li>Long-lasting protection up to 10k km</li></ul>
+                  <div class="product-actions"><a href="#affiliate-link-3" class="buy">Buy on Amazon</a><a href="#" class="more">Details</a></div>
+                </div>
+              </div>
+
+              <div class="product-card" data-brand="Maruti Suzuki" data-model="Dzire" data-title="Shell Helix HX8 0W-20">
+                <div class="product-media"><img src="https://m.media-amazon.com/images/I/61xf+NW4CeL._AC_UF1000,1000_QL80_.jpg" alt="Shell Helix 0W-20"></div>
+                <div class="product-body">
+                  <div class="product-title">Shell Helix HX8 0W-20 Fully Synthetic</div>
+                  <ul class="product-advantages"><li>Cleaner pistons & better thermal stability</li></ul>
+                  <div class="product-actions"><a href="#affiliate-link-4" class="buy">Buy on Amazon</a><a href="#" class="more">Details</a></div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Alto -->
+          <article class="model-card" data-model="Alto">
+            <h3>Alto</h3>
+            <p class="model-info">Recommended: 5W-30 Synthetic (≈2.7L) — compact city cars.</p>
+            <div class="products-grid">
+              <div class="product-card" data-brand="Maruti Suzuki" data-model="Alto" data-title="Castrol Magnatec 5W-30 Alto">
+                <div class="product-media"><img src="https://m.media-amazon.com/images/I/61pIXcFn-OL.jpg" alt="Castrol Magnatec 5W-30 Alto"></div>
+                <div class="product-body">
+                  <div class="product-title">Castrol Magnatec Stop-Start 5W-30</div>
+                  <ul class="product-advantages"><li>Instant protection at startup</li></ul>
+                  <div class="product-actions"><a href="#affiliate-link-13" class="buy">Buy on Amazon</a><a href="#" class="more">Details</a></div>
+                </div>
+              </div>
+
+              <div class="product-card" data-brand="Maruti Suzuki" data-model="Alto" data-title="Shell Helix HX8 5W-30 Alto">
+                <div class="product-media"><img src="https://m.media-amazon.com/images/I/71ca7JJvF-L._AC_UF1000,1000_QL80_.jpg" alt="Shell Helix 5W-30"></div>
+                <div class="product-body">
+                  <div class="product-title">Shell Helix HX8 5W-30 Fully Synthetic</div>
+                  <ul class="product-advantages"><li>Cleaner engines & extended intervals</li></ul>
+                  <div class="product-actions"><a href="#affiliate-link-14" class="buy">Buy on Amazon</a><a href="#" class="more">Details</a></div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Baleno -->
+          <article class="model-card" data-model="Baleno">
+            <h3>Baleno</h3>
+            <p class="model-info">Recommended: 5W-30 Synthetic — premium hatchbacks.</p>
+            <div class="products-grid">
+              <div class="product-card" data-brand="Maruti Suzuki" data-model="Baleno" data-title="Mobil Super 5W-30">
+                <div class="product-media"><img src="https://m.media-amazon.com/images/I/71K+9z4zKBL._AC_SL1500_.jpg" alt="Mobil Super 5W-30"></div>
+                <div class="product-body">
+                  <div class="product-title">Mobil Super All in One 5W-30</div>
+                  <ul class="product-advantages"><li>Triple action formula & fuel savings</li></ul>
+                  <div class="product-actions"><a href="#affiliate-link-15" class="buy">Buy on Amazon</a><a href="#" class="more">Details</a></div>
+                </div>
+              </div>
+
+              <div class="product-card" data-brand="Maruti Suzuki" data-model="Baleno" data-title="Castrol Magnatec 5W-30 Baleno">
+                <div class="product-media"><img src="https://m.media-amazon.com/images/I/61pIXcFn-OL.jpg" alt="Castrol Magnatec 5W-30"></div>
+                <div class="product-body">
+                  <div class="product-title">Castrol Magnatec 5W-30</div>
+                  <ul class="product-advantages"><li>Magnetic molecules & hybrid compatible</li></ul>
+                  <div class="product-actions"><a href="#affiliate-link-16" class="buy">Buy on Amazon</a><a href="#" class="more">Details</a></div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </div> <!-- /.models-wrap -->
+      </div> <!-- /.brand-section -->
+
+      <!-- ===== BRAND: Hyundai (sample subset) ===== -->
+      <div class="brand-section" data-brand="Hyundai">
+        <div class="brand-head"><h2>Hyundai</h2><div class="brand-intro muted">Recommended oils for Hyundai models</div></div>
+        <div class="models-wrap">
+          <article class="model-card" data-model="Creta">
+            <h3>Creta</h3>
+            <p class="model-info">Recommended: 0W-20 (4.2–4.8L)</p>
+            <div class="products-grid">
+              <div class="product-card" data-brand="Hyundai" data-model="Creta" data-title="Shell Helix HX8 0W-20">
+                <div class="product-media"><img src="https://m.media-amazon.com/images/I/61xf+NW4CeL._AC_UF1000,1000_QL80_.jpg" alt="Shell Helix 0W-20"></div>
+                <div class="product-body">
+                  <div class="product-title">Shell Helix HX8 0W-20</div>
+                  <ul class="product-advantages"><li>Flexi-Molecule adapts to engine stress</li></ul>
+                  <div class="product-actions"><a href="#affiliate-link-5" class="buy">Buy on Amazon</a><a href="#" class="more">Details</a></div>
+                </div>
+              </div>
+
+              <div class="product-card" data-brand="Hyundai" data-model="Creta" data-title="Castrol Magnatec 0W-20">
+                <div class="product-media"><img src="https://m.media-amazon.com/images/I/714WBxqxukL.jpg" alt="Castrol 0W-20"></div>
+                <div class="product-body">
+                  <div class="product-title">Castrol Magnatec 0W-20</div>
+                  <ul class="product-advantages"><li>Instant protection on startup</li></ul>
+                  <div class="product-actions"><a href="#affiliate-link-6" class="buy">Buy on Amazon</a><a href="#" class="more">Details</a></div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Add additional Hyundai models similarly... -->
+        </div>
+      </div>
+
+      <!-- ===== More brands (Tata, Mahindra, Kia, Honda, Toyota) ===== -->
+      <!-- For brevity in this single file I've included representative products above --
+           replicate the same structure for other models/brands from your Engine oils file. -->
+      <!-- You can copy product-card blocks and set data-brand/data-model/data-title accordingly. -->
+
+      <!-- Notice -->
+      <div class="disclosure" role="note">
+        <strong>Disclosure:</strong> Pal Auto Munirka is an Amazon Associate; we may earn from qualifying purchases. Prices & availability may change. We recommend confirming oil grade & capacity from your vehicle manual or manufacturer before purchase.
+      </div>
+
+    </section>
+  </main>
+
+  <!-- ===== Footer (keeps same tonal footer as index) ===== -->
+  <footer class="site-footer" id="contact">
+    <div class="footer-inner">
+      <div>
+        <div style="font-weight:800; font-size:1.05rem">Pal Auto Munirka</div>
+        <div class="muted" style="font-size:.95rem">Gate 1, Main Road, Munirka, New Delhi • Mon–Sat 9:00–18:00</div>
+      </div>
+
+      <div style="text-align:right">
+        <small>Phone: <a href="tel:+917042342392" style="color:#cfe8ff; text-decoration:none">70423 42392</a></small>
+        <div style="margin-top:8px"><a href="https://wa.me/917042342392" style="color:#cfe8ff; text-decoration:none" target="_blank" rel="noopener">WhatsApp Us</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== Scripts: Filter logic & search (client-only) ===== -->
+  <script>
+    (function(){
+      // Simple data for models per brand (keeps sync with HTML above)
+      const brandModels = {
+        "Maruti Suzuki": ["Swift","Dzire","Alto","Baleno","Brezza"],
+        "Hyundai": ["Creta","i20","Venue"],
+        "Tata": ["Nexon","Punch","Tiago"],
+        "Mahindra": ["XUV700","Thar"],
+        "Kia": ["Seltos","Sonet"],
+        "Honda": ["City","Amaze","WR-V","Elevate"],
+        "Toyota": ["Innova Crysta","Fortuner"]
+      };
+
+      const brandSelect = document.getElementById('brandFilter');
+      const modelSelect = document.getElementById('modelFilter');
+      const searchInput = document.getElementById('searchOil');
+      const clearBtn = document.getElementById('clearFilters');
+      const productCards = Array.from(document.querySelectorAll('.product-card'));
+      const brandSections = Array.from(document.querySelectorAll('.brand-section'));
+
+      function populateModelsFor(brand){
+        // reset
+        modelSelect.innerHTML = '<option value="">All Models</option>';
+        if(!brand || !brandModels[brand]){ modelSelect.disabled = true; return; }
+        brandModels[brand].forEach(m => {
+          const opt = document.createElement('option'); opt.value = m; opt.textContent = m;
+          modelSelect.appendChild(opt);
+        });
+        modelSelect.disabled = false;
+      }
+
+      function applyFilters(){
+        const brand = brandSelect.value.trim();
+        const model = modelSelect.value.trim();
+        const query = (searchInput.value || '').trim().toLowerCase();
+
+        productCards.forEach(card => {
+          const cb = (card.dataset.brand || '').trim();
+          const cm = (card.dataset.model || '').trim();
+          const title = (card.dataset.title || '').toLowerCase();
+
+          let visible = true;
+          if(brand && cb !== brand) visible = false;
+          if(model && cm !== model) visible = false;
+          if(query){
+            // match title, model or brand or advantages text
+            const contentText = title + ' ' + (cm||'') + ' ' + (cb||'') + ' ' + (card.innerText||'').toLowerCase();
+            if(!contentText.includes(query)) visible = false;
+          }
+          card.style.display = visible ? '' : 'none';
+        });
+
+        // Hide/Show brand sections if none of their products visible
+        brandSections.forEach(section => {
+          const brand = section.dataset.brand;
+          // find any product under this section visible
+          const anyVisible = Array.from(section.querySelectorAll('.product-card')).some(pc => pc.style.display !== 'none');
+          section.style.display = anyVisible ? '' : 'none';
+        });
+      }
+
+      // populate models when brand changes
+      brandSelect.addEventListener('change', e=>{
+        populateModelsFor(e.target.value);
+        // clear model selection on brand change to show all models for that brand
+        modelSelect.value = '';
+        applyFilters();
+      });
+
+      modelSelect.addEventListener('change', applyFilters);
+      searchInput.addEventListener('input', function(){
+        // small debounce
+        if(this._t) clearTimeout(this._t);
+        this._t = setTimeout(applyFilters, 180);
+      });
+
+      clearBtn.addEventListener('click', function(){
+        brandSelect.value = '';
+        modelSelect.innerHTML = '<option value="">All Models</option>';
+        modelSelect.disabled = true;
+        searchInput.value = '';
+        applyFilters();
+      });
+
+      // On page load: show all by default
+      document.addEventListener('DOMContentLoaded', function(){
+        // ensure product containers rendered
+        applyFilters();
+      });
+
+      // OPTIONAL: Make product cards clickable (open affiliate link in a new tab)
+      document.querySelectorAll('.product-card .buy').forEach(btn=>{
+        btn.addEventListener('click', function(e){
+          // sample behavior: follow anchor (href exists as placeholder)
+          // real affiliate links should be used in the markup.
+        });
+      });
+
+    })();
+  </script>
+</body>
+</html>
