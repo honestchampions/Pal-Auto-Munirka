@@ -1,196 +1,872 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Engine Oils — Pal Auto Munirka</title>
-  <meta name="description" content="Recommended engine oils by car brand & model — Pal Auto Munirka. Book a service or call for advice." />
-  <style>
-    /* (styles same as previous reply - omitted here for brevity) */
-    :root{--brand-blue:#0b64d6;--brand-dark:#052a63;--accent:#e34234;--muted:#6b7280;--bg:#f7f9fb;--card-bg:#ffffff;--radius:12px}
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:linear-gradient(180deg,#f8fbff 0%,var(--bg) 100%);color:#111827}
-    .site-header{background:linear-gradient(90deg,var(--brand-blue),#0066cc);color:#fff;padding:.8rem 1rem;box-shadow:0 6px 18px rgba(11,100,214,.12);position:sticky;top:0;z-index:40}
-    .nav{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:1rem}
-    .logo{display:flex;align-items:center;gap:.6rem;font-weight:700;font-size:1.15rem}
-    .mark{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#fff,rgba(255,255,255,.85));color:var(--brand-blue);display:flex;align-items:center;justify-content:center;font-weight:800;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-    .nav-links{margin-left:auto;display:flex;gap:.6rem;align-items:center}
-    .nav-links a{color:rgba(255,255,255,.95);text-decoration:none;padding:8px 10px;border-radius:8px;font-weight:600}
-    .nav-links a:hover{background:rgba(255,255,255,.08)}
-    .hero{max-width:1200px;margin:20px auto;padding:18px;display:grid;grid-template-columns:1fr 360px;gap:18px;align-items:start}
-    .hero-card{background:var(--card-bg);border-radius:var(--radius);padding:18px;box-shadow:0 6px 18px rgba(17,24,39,.06)}
-    .hero h1{margin:0 0 6px;color:var(--brand-dark);font-size:1.5rem}
-    .lead{margin:0 0 12px;color:var(--muted)}
-    .filters{display:flex;flex-direction:column;gap:10px}
-    .form-row{display:flex;gap:8px}
-    select.form-control,input.form-control{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #e6e9ef;background:#fff;font-size:.95rem;outline:none}
-    .form-inline{display:flex;gap:8px;align-items:center}
-    .btn{display:inline-block;padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:700}
-    .btn-primary{background:var(--brand-blue);color:#fff}
-    .btn-accent{background:var(--accent);color:#fff}
-    .promo{background:linear-gradient(180deg,#fff,#fbfbff);border-radius:12px;padding:14px;box-shadow:0 6px 18px rgba(11,100,214,.06);text-align:left;display:flex;flex-direction:column;gap:10px}
-    .models-wrap{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
-    .model-card{background:var(--card-bg);border-radius:12px;padding:12px;box-shadow:0 6px 18px rgba(16,24,40,.04);display:flex;flex-direction:column;gap:10px;min-height:160px}
-    .products-grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-    .product-card{border-radius:10px;overflow:hidden;background:#fff;border:1px solid #eef2f6;display:flex;flex-direction:column;transition:transform .18s ease,box-shadow .18s ease}
-    .product-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(9,20,50,.08)}
-    .product-media{position:relative;height:160px;background:linear-gradient(180deg,#f6f8fb,#fff);display:flex;align-items:center;justify-content:center;padding:8px}
-    .product-media img{max-width:100%;max-height:140px;object-fit:contain;display:block}
-    .product-body{padding:12px;display:flex;flex-direction:column;gap:8px;flex:1}
-    .product-title{font-weight:700;color:#0f1724;font-size:.98rem}
-    .product-actions{margin-top:auto;display:flex;gap:8px}
-    .buy{background:var(--brand-blue);color:#fff;padding:9px 10px;border-radius:10px;text-decoration:none;display:inline-block;font-weight:700}
-    .more{background:#eef4ff;color:var(--brand-dark);padding:9px 10px;border-radius:10px;text-decoration:none;display:inline-block;font-weight:700}
-    .disclosure{max-width:1200px;margin:18px auto 36px;padding:12px;border-radius:10px;background:linear-gradient(90deg,#fffaf0,#fff);border:1px solid #fff0d4;color:#6b4b00}
-    .site-footer{background:linear-gradient(180deg,#051a4a,#03112d);color:#dbeafe;padding:22px 18px;margin-top:40px}
-    .footer-inner{max-width:1200px;margin:0 auto;display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:space-between}
-    .muted{color:var(--muted)}
-    @media (max-width:980px){.hero{grid-template-columns:1fr;padding:12px;gap:12px}.hero .promo{order:2}}
-    @media (max-width:540px){.product-media{height:140px}.product-media img{max-height:120px}}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engine Oils for Popular Indian Car Models - Pal Auto Munirka</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #007bff;
+        }
+        .brand-section {
+            margin-bottom: 40px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .model-section {
+            margin-bottom: 30px;
+        }
+        .intro {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: box-shadow 0.3s;
+            background: #fff;
+            display:flex;
+            flex-direction:column;
+        }
+        .product-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+        }
+        .product-image {
+            width: 100%;
+            height: 220px;
+            object-fit: contain;
+            background: linear-gradient(180deg,#f8fbff,#fff);
+            display:block;
+        }
+        .product-info {
+            padding: 15px;
+            display:flex;
+            flex-direction:column;
+            gap:10px;
+            flex:1;
+        }
+        .product-name {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color:#0b3b72;
+        }
+        .advantages {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin: 0;
+            color:#444;
+            font-size:0.95rem;
+        }
+        .buy-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+            font-weight:700;
+        }
+        .buy-btn:hover {
+            background-color: #0056b3;
+        }
+        .disclosure {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Filters / header tweaks */
+        .page-hero{
+            background: linear-gradient(90deg,#f7faff,#ffffff);
+            padding: 18px 0;
+            border-bottom: 1px solid #e8eef8;
+        }
+        .hero-inner{
+            max-width:1200px;
+            margin:0 auto;
+            display:flex;
+            gap:18px;
+            align-items:center;
+            padding:0 18px;
+        }
+        .hero-left{flex:1}
+        .filters{display:flex;gap:10px;flex-wrap:wrap}
+        select,input{padding:10px;border-radius:8px;border:1px solid #dfe8f6;min-width:160px}
+        .controls { display:flex; gap:8px; align-items:center; margin-top:12px; flex-wrap:wrap; }
+
+        @media (max-width: 900px){
+            .product-image{height:180px}
+        }
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-inner{flex-direction:column;align-items:stretch}
+        }
+        footer{background:#06326b;color:#fff;padding:22px 18px;margin-top:30px;}
+        .cta-row{display:flex;gap:10px;flex-wrap:wrap}
+        .small-muted{color:#666;font-size:0.95rem}
+    </style>
 </head>
 <body>
+    <header>
+        <div class="container">
+            <h1>Engine Oils for Popular Indian Car Models</h1>
+            <p class="small-muted">Pal Auto Munirka — Trusted recommendations & genuine oils. Call us: <strong>70423 42392</strong></p>
+        </div>
+    </header>
 
-  <header class="site-header">
-    <nav class="nav" role="navigation">
-      <div class="logo">
-        <div class="mark">PA</div>
-        <div><div style="font-size:.95rem">Pal Auto</div><div style="font-size:.78rem;opacity:.95;margin-top:-4px;">Munirka</div></div>
-      </div>
-      <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="services.html">Services</a>
-        <a href="engine-oils.html" style="background:rgba(255,255,255,.12);border-radius:8px">Engine Oils</a>
-        <a href="#contact">Contact</a>
-        <a href="tel:+917042342392" style="display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--brand-blue);padding:8px 12px;border-radius:10px;">📞 70423 42392</a>
-      </div>
-    </nav>
-  </header>
+    <section class="page-hero" aria-label="Search and promotions">
+      <div class="hero-inner">
+        <div class="hero-left">
+          <h2 style="margin:0;color:#083a86">Find the right engine oil for your car</h2>
+          <p class="small-muted" style="margin:6px 0 0">Filter by brand and model. All Buy links are affiliate links to Amazon.</p>
 
-  <main>
-    <section class="hero" aria-labelledby="pageTitle">
-      <div class="hero-card">
-        <h1 id="pageTitle">Engine Oils for Popular Car Brands & Models</h1>
-        <p class="lead">Select your car brand and model to see recommended engine oils with product highlights.</p>
+          <div class="filters" style="margin-top:10px;">
+            <select id="brandFilter">
+              <option value="">All Brands</option>
+              <option>Maruti Suzuki</option>
+              <option>Hyundai</option>
+              <option>Tata</option>
+              <option>Mahindra</option>
+              <option>Kia</option>
+              <option>Honda</option>
+              <option>Toyota</option>
+            </select>
 
-        <div class="filters" aria-label="Search and filter products">
-          <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <div style="flex:1; min-width:180px;">
-              <label for="brandFilter" class="muted" style="font-size:.85rem">Car Brand</label>
-              <select id="brandFilter" class="form-control" aria-controls="modelsList">
-                <option value="">All Brands</option>
-                <option>Maruti Suzuki</option>
-                <option>Hyundai</option>
-                <option>Tata</option>
-                <option>Mahindra</option>
-                <option>Kia</option>
-                <option>Honda</option>
-                <option>Toyota</option>
-              </select>
-            </div>
-            <div style="flex:1; min-width:180px;">
-              <label for="modelFilter" class="muted" style="font-size:.85rem">Model</label>
-              <select id="modelFilter" class="form-control" disabled>
-                <option value="">All Models</option>
-              </select>
-            </div>
-            <div style="flex:1; min-width:180px;">
-              <label for="searchOil" class="muted" style="font-size:.85rem">Search Oils / Products</label>
-              <input id="searchOil" class="form-control" placeholder="Search (e.g. Castrol, Shell, Mobil)" />
-            </div>
+            <select id="modelFilter" disabled>
+              <option value="">All Models</option>
+            </select>
+
+            <input id="searchOil" placeholder="Search product or brand..." />
           </div>
 
-          <div style="display:flex; gap:8px; margin-top:8px;">
-            <button id="clearFilters" class="btn btn-primary">Reset Filters</button>
+          <div class="controls">
+            <button id="clearFilters" class="buy-btn" style="background:#e34b3c">Reset Filters</button>
             <div style="flex:1"></div>
-            <small class="muted" style="align-self:center">Tip: Start by selecting a Brand</small>
+            <div class="small-muted">Tip: select a brand to narrow models</div>
+          </div>
+        </div>
+
+        <div style="min-width:260px;">
+          <div style="background:#fff;border-radius:8px;padding:12px;box-shadow:0 6px 18px rgba(0,0,0,0.06)">
+            <div style="font-weight:800;color:#0b3b72">Special Offer — Pal Auto Munirka</div>
+            <div style="font-size:0.95rem;color:#666;margin-top:6px">Free labour on oil change with purchase of 4L (T&C apply). Book: <a href="tel:+917042342392">70423 42392</a></div>
+            <div style="margin-top:10px" class="cta-row">
+              <a href="tel:+917042342392" class="buy-btn" style="background:#e34b3c">📞 Call</a>
+              <a href="https://wa.me/917042342392" class="buy-btn" style="background:#0b64d6">💬 WhatsApp</a>
+            </div>
           </div>
         </div>
       </div>
-
-      <aside class="promo" aria-label="Promotional contact">
-        <strong>Special — Pal Auto Munirka (Munirka, New Delhi)</strong>
-        <small>Limited time: <strong>Free Labour</strong> on engine oil change with purchase of 4L (T&C apply).</small>
-        <div style="display:flex; gap:8px; align-items:center;">
-          <div style="width:64px; height:64px; border-radius:10px; background:linear-gradient(135deg,#fff,#f3f7ff); display:flex;align-items:center;justify-content:center; font-weight:800; color:var(--brand-blue)">🔧</div>
-          <div><div style="font-weight:700">Book Your Service</div><div class="muted" style="font-size:.92rem">Expert mechanics • Genuine oils • Fast turnaround</div></div>
-        </div>
-        <div class="contact-actions" role="group" aria-label="Contact">
-          <a class="btn btn-accent" href="tel:+917042342392">📞 Call 70423 42392</a>
-          <a class="btn btn-primary" href="https://wa.me/917042342392" target="_blank" rel="noopener">💬 WhatsApp</a>
-        </div>
-        <div style="font-size:.92rem; color:var(--muted); margin-top:6px"><strong>Workshop:</strong> Pal Auto Munirka, Gate 1, Main Road, Munirka, New Delhi.</div>
-      </aside>
     </section>
 
-    <section class="content" id="productsContent">
-      <!-- Maruti Suzuki (sample products) -->
-      <div class="brand-section" data-brand="Maruti Suzuki">
-        <div class="brand-head"><h2>Maruti Suzuki</h2><div class="brand-intro muted">Common models and recommended oils.</div></div>
-        <div class="models-wrap">
-          <article class="model-card" data-model="Swift">
-            <h3>Swift</h3>
-            <p class="model-info">Recommended: 5W-30 Synthetic (≈3.1L)</p>
-            <div class="products-grid">
-              <div class="product-card" data-brand="Maruti Suzuki" data-model="Swift" data-title="Shell Helix HX8 5W-30">
-                <div class="product-media"><img src="https://m.media-amazon.com/images/I/71ca7JJvF-L._AC_UF1000,1000_QL80_.jpg" alt="Shell Helix HX8 5W-30"></div>
-                <div class="product-body"><div class="product-title">Shell Helix HX8 5W-30</div><ul class="product-advantages"><li>Adaptive Flexi-Molecule</li><li>Fuel economy & wear protection</li></ul><div class="product-actions"><a href="#affiliate-link-1" class="buy">Buy on Amazon</a><a href="#" class="more">Details</a></div></div>
-              </div>
+    <main class="container" id="productsContent">
+        <!-- Maruti Suzuki -->
+        <div class="brand-section" data-brand="Maruti Suzuki">
+            <h2>Maruti Suzuki</h2>
+            <div class="model-section">
+                <h3>Swift</h3>
+                <p class="intro">Recommended: 5W-30 Synthetic Engine Oil (Capacity: ~3.1L). Ideal for petrol variants, providing smooth performance in city driving.</p>
+                <div class="products-grid">
 
-              <div class="product-card" data-brand="Maruti Suzuki" data-model="Swift" data-title="Castrol Magnatec 5W-30">
-                <div class="product-media"><img src="https://m.media-amazon.com/images/I/61pIXcFn-OL.jpg" alt="Castrol Magnatec 5W-30"></div>
-                <div class="product-body"><div class="product-title">Castrol Magnatec 5W-30</div><ul class="product-advantages"><li>Instant protection for stop-start</li></ul><div class="product-actions"><a href="#affiliate-link-2" class="buy">Buy on Amazon</a><a href="#" class="more">Details</a></div></div>
-              </div>
-            </div>
-          </article>
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/71ca7JJvF-L._AC_UF1000,1000_QL80_.jpg" alt="Shell Helix HX8 5W-30" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Shell Helix HX8 5W-30 Fully Synthetic</div>
+                            <ul class="advantages">
+                                <li>Flexi-Molecule Technology for adaptive protection every drive</li>
+                                <li>Up to 2% improved fuel economy</li>
+                            </ul>
+                            <a href="https://amzn.to/48LFkWy" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
 
-          <!-- Dzire -->
-          <article class="model-card" data-model="Dzire">
-            <h3>Dzire</h3>
-            <p class="model-info">Recommended: 0W-20 Synthetic (≈3.2L)</p>
-            <div class="products-grid">
-              <div class="product-card" data-brand="Maruti Suzuki" data-model="Dzire" data-title="Castrol Magnatec 0W-20">
-                <div class="product-media"><img src="https://m.media-amazon.com/images/I/714WBxqxukL.jpg" alt="Castrol 0W-20"></div>
-                <div class="product-body"><div class="product-title">Castrol 0W-20</div><ul class="product-advantages"><li>Cold start protection</li></ul><div class="product-actions"><a href="#affiliate-link-3" class="buy">Buy on Amazon</a><a href="#" class="more">Details</a></div></div>
-              </div>
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/61pIXcFn-OL.jpg" alt="Castrol Magnatec 5W-30" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Castrol Magnatec Stop-Start 5W-30 Full Synthetic</div>
+                            <ul class="advantages">
+                                <li>Intelligent molecules cling to engine parts for instant protection</li>
+                                <li>Non-stop protection even in stop-start traffic</li>
+                            </ul>
+                            <a href="https://amzn.to/4oBpbrw" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-          </article>
+
+            <div class="model-section">
+                <h3>Dzire</h3>
+                <p class="intro">Recommended: 0W-20 Synthetic Engine Oil (Capacity: ~3.2L). Suited for efficient petrol engines, optimizing mileage in urban use.</p>
+                <div class="products-grid">
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/714WBxqxukL.jpg" alt="Castrol Magnatec 0W-20" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Castrol Magnatec 0W-20 Full Synthetic</div>
+                            <ul class="advantages">
+                                <li>Superior cold-start protection for quick engine warm-up</li>
+                                <li>Reduces friction for better fuel economy</li>
+                            </ul>
+                            <a href="https://amzn.to/4oDj1qJ" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/61xf+NW4CeL._AC_UF1000,1000_QL80_.jpg" alt="Shell Helix HX8 0W-20" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Shell Helix HX8 0W-20 Fully Synthetic</div>
+                            <ul class="advantages">
+                                <li>Advanced cleaning technology for piston cleanliness</li>
+                                <li>Improved acceleration and responsiveness</li>
+                            </ul>
+                            <a href="https://amzn.to/47Dhlrr" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="model-section">
+                <h3>Alto</h3>
+                <p class="intro">Recommended: 5W-30 Synthetic Engine Oil (Capacity: ~2.7L). Perfect for compact city cars, ensuring easy starts and low maintenance.</p>
+                <div class="products-grid">
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/61pIXcFn-OL.jpg" alt="Castrol Magnatec 5W-30" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Castrol Magnatec Stop-Start 5W-30</div>
+                            <ul class="advantages">
+                                <li>Clings to engine parts for immediate protection on startup</li>
+                                <li>Ideal for frequent short trips in urban traffic</li>
+                            </ul>
+                            <a href="https://amzn.to/4oBpbrw" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/71ca7JJvF-L._AC_UF1000,1000_QL80_.jpg" alt="Shell Helix HX8 5W-30" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Shell Helix HX8 5W-30 Fully Synthetic</div>
+                            <ul class="advantages">
+                                <li>Active cleaning agents keep small engines sludge-free</li>
+                                <li>Enhanced cold flow for quick warm-up</li>
+                            </ul>
+                            <a href="https://amzn.to/48LFkWy" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="model-section">
+                <h3>Baleno</h3>
+                <p class="intro">Recommended: 5W-30 Synthetic Engine Oil (Capacity: ~3.1L). Balances efficiency and performance for premium hatchbacks.</p>
+                <div class="products-grid">
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/71ALHeiJJbL._SL1500_.jpg" alt="Mobil Super 5W-30" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Mobil Super All in One 5W-30 Fully Synthetic</div>
+                            <ul class="advantages">
+                                <li>Triple Action Formula for all-round protection</li>
+                                <li>Up to 4% fuel savings</li>
+                            </ul>
+                            <a href="https://amzn.to/4nojig1" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/61pIXcFn-OL.jpg" alt="Castrol Magnatec 5W-30" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Castrol Magnatec 5W-30 Full Synthetic</div>
+                            <ul class="advantages">
+                                <li>Magnetic technology for critical part protection</li>
+                                <li>Reduces noise and vibration</li>
+                            </ul>
+                            <a href="https://amzn.to/3WhWljM" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="model-section">
+                <h3>Brezza</h3>
+                <p class="intro">Recommended: 0W-20 Synthetic Engine Oil (Capacity: ~3.3L). Optimized for compact SUVs, enhancing off-road capability and mileage.</p>
+                <div class="products-grid">
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/714WBxqxukL.jpg" alt="Castrol EDGE 0W-20" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Castrol EDGE Euro Car 0W-20 Full Synthetic</div>
+                            <ul class="advantages">
+                                <li>Power Boost Technology for 40% better performance</li>
+                                <li>Protects against LSPI in turbo engines</li>
+                            </ul>
+                            <a href="https://amzn.to/4oge1Zl" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/61xf+NW4CeL._AC_UF1000,1000_QL80_.jpg" alt="Shell Helix HX8 0W-20" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Shell Helix HX8 0W-20 Fully Synthetic</div>
+                            <ul class="advantages">
+                                <li>Superior piston cleanliness for efficient combustion</li>
+                                <li>Low volatility for consistent lubrication</li>
+                            </ul>
+                            <a href="https://amzn.to/47Dhlrr" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
-      </div>
 
-      <!-- Hyundai (sample) -->
-      <div class="brand-section" data-brand="Hyundai">
-        <div class="brand-head"><h2>Hyundai</h2><div class="brand-intro muted">Recommended oils for Hyundai models</div></div>
-        <div class="models-wrap">
-          <article class="model-card" data-model="Creta">
-            <h3>Creta</h3>
-            <p class="model-info">Recommended: 0W-20 (4.2–4.8L)</p>
-            <div class="products-grid">
-              <div class="product-card" data-brand="Hyundai" data-model="Creta" data-title="Shell Helix HX8 0W-20">
-                <div class="product-media"><img src="https://m.media-amazon.com/images/I/61xf+NW4CeL._AC_UF1000,1000_QL80_.jpg" alt="Shell Helix 0W-20"></div>
-                <div class="product-body"><div class="product-title">Shell Helix 0W-20</div><ul class="product-advantages"><li>Flexi-Molecule</li></ul><div class="product-actions"><a href="#affiliate-link-5" class="buy">Buy on Amazon</a><a href="#" class="more">Details</a></div></div>
-              </div>
+        <!-- Hyundai -->
+        <div class="brand-section" data-brand="Hyundai">
+            <h2>Hyundai</h2>
+
+            <div class="model-section">
+                <h3>Creta</h3>
+                <p class="intro">Recommended: 0W-20 Synthetic Engine Oil (Capacity: ~4.2-4.8L). Perfect for turbo petrol/diesel, ensuring quiet operation and longevity.</p>
+                <div class="products-grid">
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/61xf+NW4CeL._AC_UF1000,1000_QL80_.jpg" alt="Shell Helix HX8 0W-20" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Shell Helix HX8 0W-20 Fully Synthetic</div>
+                            <ul class="advantages">
+                                <li>Flexi-Molecule adapts to engine stress for max protection</li>
+                                <li>Reduces oil consumption in high-mileage SUVs</li>
+                            </ul>
+                            <a href="https://amzn.to/47Dhlrr" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/714WBxqxukL.jpg" alt="Castrol Magnatec 0W-20" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Castrol Magnatec 0W-20 Full Synthetic</div>
+                            <ul class="advantages">
+                                <li>Instant protection on startup, vital for modern engines</li>
+                                <li>Up to 4x better wear protection</li>
+                            </ul>
+                            <a href="https://amzn.to/4oDj1qJ" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-          </article>
+
+            <div class="model-section">
+                <h3>i20</h3>
+                <p class="intro">Recommended: 0W-20 Synthetic Engine Oil (Capacity: ~3.5L). Suited for sporty hatchbacks, delivering responsive acceleration.</p>
+                <div class="products-grid">
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/51Uu9kzFU7L.jpg" alt="Mobil Super 0W-20" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Mobil Super All in One 0W-20 Fully Synthetic</div>
+                            <ul class="advantages">
+                                <li>Advanced fuel economy formula</li>
+                                <li>Protects against timing chain wear</li>
+                            </ul>
+                            <a href="https://amzn.to/477CzOf" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/714WBxqxukL.jpg" alt="Castrol EDGE 0W-20" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Castrol EDGE Euro Car 0W-20 Full Synthetic</div>
+                            <ul class="advantages">
+                                <li>40% improved performance under pressure</li>
+                                <li>Reduces friction for sporty driving</li>
+                            </ul>
+                            <a href="https://amzn.to/4oge1Zl" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="model-section">
+                <h3>Venue</h3>
+                <p class="intro">Recommended: 0W-20 Synthetic Engine Oil (Capacity: ~3.6L). Ideal for sub-compact SUVs, focusing on fuel efficiency and compact power.</p>
+                <div class="products-grid">
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/61xf+NW4CeL._AC_UF1000,1000_QL80_.jpg" alt="Shell Helix HX8 0W-20" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Shell Helix HX8 0W-20 Fully Synthetic</div>
+                            <ul class="advantages">
+                                <li>Quick flow for instant lubrication</li>
+                                <li>Minimizes energy loss for better mileage</li>
+                            </ul>
+                            <a href="https://amzn.to/47Dhlrr" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/41F0CYBno2L.jpg" alt="Mobil Super 0W-20" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Mobil Super All in One 0W-20 Fully Synthetic</div>
+                            <ul class="advantages">
+                                <li>Triple protection against wear and deposits</li>
+                                <li>Supports connected car features</li>
+                            </ul>
+                            <a href="https://amzn.to/477CzOf" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
-      </div>
 
-      <div class="disclosure"><strong>Disclosure:</strong> Pal Auto Munirka is an Amazon Associate; we may earn from qualifying purchases.</div>
+        <!-- Tata -->
+        <div class="brand-section" data-brand="Tata">
+            <h2>Tata</h2>
 
-    </section>
-  </main>
+            <div class="model-section">
+                <h3>Nexon</h3>
+                <p class="intro">Recommended: 5W-30 Engine Oil (Capacity: ~5L). Balances performance and efficiency for compact SUVs in varied terrains.</p>
+                <div class="products-grid">
 
-  <footer class="site-footer" id="contact">
-    <div class="footer-inner">
-      <div><div style="font-weight:800;font-size:1.05rem">Pal Auto Munirka</div><div class="muted" style="font-size:.95rem">Gate 1, Main Road, Munirka, New Delhi • Mon–Sat 9:00–18:00</div></div>
-      <div style="text-align:right"><small>Phone: <a href="tel:+917042342392" style="color:#cfe8ff;text-decoration:none">70423 42392</a></small><div style="margin-top:8px"><a href="https://wa.me/917042342392" style="color:#cfe8ff;text-decoration:none" target="_blank" rel="noopener">WhatsApp Us</a></div></div>
-    </div>
-  </footer>
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/6181MpUfWuL._AC_UF1000,1000_QL80_.jpg" alt="Servo Futura G Plus 5W-30" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Servo Futura G Plus 5W-30 Synthetic</div>
+                            <ul class="advantages">
+                                <li>Up to 15,000 km protection for long intervals</li>
+                                <li>Improved fuel economy by 2%</li>
+                            </ul>
+                            <a href="https://amzn.to/4osCwSS" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
 
-  <script>
-    (function(){
-      try{
-        // models map
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/61pIXcFn-OL.jpg" alt="Castrol Magnatec 5W-30" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Castrol Magnatec Stop-Start 5W-30 Full Synthetic</div>
+                            <ul class="advantages">
+                                <li>Clings like a magnet to critical parts</li>
+                                <li>40% better protection in city traffic</li>
+                            </ul>
+                            <a href="https://amzn.to/4oBpbrw" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="model-section">
+                <h3>Punch</h3>
+                <p class="intro">Recommended: 0W-20 Synthetic Engine Oil (Capacity: ~4.5L). Designed for micro-SUVs, prioritizing safety and economy.</p>
+                <div class="products-grid">
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/714WBxqxukL.jpg" alt="Castrol EDGE 0W-20" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Castrol EDGE Euro Car 0W-20 Full Synthetic</div>
+                            <ul class="advantages">
+                                <li>Advanced protection for 5-star safety engines</li>
+                                <li>Fuel efficiency for long highway runs</li>
+                            </ul>
+                            <a href="https://amzn.to/4oge1Zl" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/41F0CYBno2L.jpg" alt="Mobil Super 0W-20" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Mobil Super All in One 0W-20 Fully Synthetic</div>
+                            <ul class="advantages">
+                                <li>Enhanced wear protection for AMT variants</li>
+                                <li>Low friction for punchy acceleration</li>
+                            </ul>
+                            <a href="https://amzn.to/477CzOf" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="model-section">
+                <h3>Tiago</h3>
+                <p class="intro">Recommended: 5W-30 Synthetic Engine Oil (Capacity: ~3.75L). Great for entry-level sedans, focusing on affordability and reliability.</p>
+                <div class="products-grid">
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/61pIXcFn-OL.jpg" alt="Castrol Magnatec 5W-30" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Castrol Magnatec 5W-30 Full Synthetic</div>
+                            <ul class="advantages">
+                                <li>Instant safeguarding for budget-friendly drives</li>
+                                <li>Up to 20% better protection at startup</li>
+                            </ul>
+                            <a href="https://amzn.to/3WhWljM" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/71ca7JJvF-L._AC_UF1000,1000_QL80_.jpg" alt="Shell Helix HX8 5W-30" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Shell Helix HX8 5W-30 Fully Synthetic</div>
+                            <ul class="advantages">
+                                <li>Cleans engine for optimal efficiency</li>
+                                <li>Supports 5-star safety features</li>
+                            </ul>
+                            <a href="https://amzn.to/48LFkWy" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Mahindra -->
+        <div class="brand-section" data-brand="Mahindra">
+            <h2>Mahindra</h2>
+
+            <div class="model-section">
+                <h3>XUV700</h3>
+                <p class="intro">Recommended: 5W-30 Synthetic Engine Oil (Capacity: ~6L). High-performance for powerful engines, ideal for family SUVs.</p>
+                <div class="products-grid">
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/71KKoJ6NxPL.jpg" alt="Muzitol 5W-30" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Muzitol 5W-30 Semi-Synthetic</div>
+                            <ul class="advantages">
+                                <li>Advanced protection for high-rev engines</li>
+                                <li>Reduces wear by 40% in demanding conditions</li>
+                            </ul>
+                            <a href="https://amzn.to/4hzlG2w" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/61pIXcFn-OL.jpg" alt="Castrol Magnatec 5W-30" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Castrol Magnatec Stop-Start 5W-30 Full Synthetic</div>
+                            <ul class="advantages">
+                                <li>Non-stop safeguarding for large displacement engines</li>
+                                <li>Up to 78% better corrosion protection</li>
+                            </ul>
+                            <a href="https://amzn.to/4oBpbrw" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="model-section">
+                <h3>Thar</h3>
+                <p class="intro">Recommended: 5W-30 Synthetic Engine Oil (Capacity: ~5.5L). Rugged protection for off-road adventures and lifestyle SUVs.</p>
+                <div class="products-grid">
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/71KKoJ6NxPL.jpg" alt="Muzitol 5W-30 Thar" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Muzitol 5W-30 Semi-Synthetic</div>
+                            <ul class="advantages">
+                                <li>High shear stability for rough terrains</li>
+                                <li>Prevents overheating in extreme conditions</li>
+                            </ul>
+                            <a href="https://amzn.to/3WRF3Km" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/61EXSpT2jKL._SL1000_.jpg" alt="Mobil Super 5W-30" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Mobil Super All in One 5W-30 Fully Synthetic</div>
+                            <ul class="advantages">
+                                <li>Triple Action for dust and heat resistance</li>
+                                <li>Extends component life in hard usage</li>
+                            </ul>
+                            <a href="https://amzn.to/4ohugoQ" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Kia -->
+        <div class="brand-section" data-brand="Kia">
+            <h2>Kia</h2>
+
+            <div class="model-section">
+                <h3>Seltos</h3>
+                <p class="intro">Recommended: 0W-20 Full Synthetic Engine Oil (Capacity: ~4L). Ensures premium feel and efficiency for stylish crossovers.</p>
+                <div class="products-grid">
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/714WBxqxukL.jpg" alt="Castrol Magnatec 0W-20" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Castrol Magnatec 0W-20 Full Synthetic</div>
+                            <ul class="advantages">
+                                <li>API SN Plus for latest engine tech</li>
+                                <li>Faster warm-up for better mileage</li>
+                            </ul>
+                            <a href="https://amzn.to/3WFPAIR" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/61xf+NW4CeL._AC_UF1000,1000_QL80_.jpg" alt="Shell Helix 0W-20" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Shell Helix HX8 0W-20 Fully Synthetic</div>
+                            <ul class="advantages">
+                                <li>ACEA C5 compliant for low-speed pre-ignition</li>
+                                <li>Enhances throttle response</li>
+                            </ul>
+                            <a href="https://amzn.to/4hqSg6A" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="model-section">
+                <h3>Sonet</h3>
+                <p class="intro">Recommended: 0W-20 Synthetic Engine Oil (Capacity: ~3.8L). Compact SUV excellence with agile handling and tech integration.</p>
+                <div class="products-grid">
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/51Uu9kzFU7L.jpg" alt="Mobil Super 0W-20" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Mobil Super All in One 0W-20 Fully Synthetic</div>
+                            <ul class="advantages">
+                                <li>Optimized for connected infotainment systems</li>
+                                <li>Low friction for spirited drives</li>
+                            </ul>
+                            <a href="https://amzn.to/477CzOf" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/714WBxqxukL.jpg" alt="Castrol EDGE 0W-20" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Castrol EDGE Euro Car 0W-20 Full Synthetic</div>
+                            <ul class="advantages">
+                                <li>Boosts performance in 1.0T engines</li>
+                                <li>Reduces NVH for premium feel</li>
+                            </ul>
+                            <a href="https://amzn.to/4oge1Zl" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Honda -->
+        <div class="brand-section" data-brand="Honda">
+            <h2>Honda</h2>
+
+            <div class="model-section">
+                <h3>City</h3>
+                <p class="intro">Recommended: 0W-20 Synthetic Engine Oil (Capacity: ~3.5L). Ideal for petrol and CNG variants, ensuring efficient performance and compatibility with dual-fuel systems.</p>
+                <div class="products-grid">
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/714WBxqxukL.jpg" alt="Castrol EDGE 0W-20" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Castrol EDGE Euro Car 0W-20 Full Synthetic</div>
+                            <ul class="advantages">
+                                <li>Power Boost Technology for 40% better performance</li>
+                                <li>CNG compatible with reduced friction for better mileage</li>
+                            </ul>
+                            <a href="https://amzn.to/4oge1Zl" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/61xf+NW4CeL._AC_UF1000,1000_QL80_.jpg" alt="Shell Helix HX8 0W-20" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Shell Helix HX8 0W-20 Fully Synthetic</div>
+                            <ul class="advantages">
+                                <li>Flexi-Molecule adapts for CNG dual-fuel protection</li>
+                                <li>Superior piston cleanliness and low emissions</li>
+                            </ul>
+                            <a href="https://amzn.to/47Dhlrr" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="model-section">
+                <h3>Amaze</h3>
+                <p class="intro">Recommended: 0W-20 Synthetic Engine Oil (Capacity: ~3.5L). Suited for compact sedans including CNG variants, optimizing urban efficiency.</p>
+                <div class="products-grid">
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/51Uu9kzFU7L.jpg">
+                        <div class="product-info">
+                            <div class="product-name">Mobil Super All in One 0W-20 Fully Synthetic</div>
+                            <ul class="advantages">
+                                <li>Triple protection for CNG and petrol engines</li>
+                                <li>Excellent cold-start and wear resistance</li>
+                            </ul>
+                            <a href="https://amzn.to/477CzOf" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/41PTdUJ9ZTL.jpg" alt="Idemitsu IFG5 0W-20" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Idemitsu IFG5 0W-20 Full Synthetic</div>
+                            <ul class="advantages">
+                                <li>High Viscosity Index for CNG compatibility</li>
+                                <li>Reduces friction and enhances responsiveness</li>
+                            </ul>
+                            <a href="https://amzn.to/4osl0Oo" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Toyota -->
+        <div class="brand-section" data-brand="Toyota">
+            <h2>Toyota</h2>
+
+            <div class="model-section">
+                <h3>Innova Crysta</h3>
+                <p class="intro">Recommended: 5W-30 Synthetic Engine Oil (Capacity: ~7L). Reliable for MPVs, emphasizing durability and family comfort.</p>
+                <div class="products-grid">
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/61pIXcFn-OL.jpg" alt="Castrol Magnatec 5W-30" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Castrol Magnatec 5W-30 Full Synthetic</div>
+                            <ul class="advantages">
+                                <li>Proven longevity for high-mileage vehicles</li>
+                                <li>Quiet diesel operation for long trips</li>
+                            </ul>
+                            <a href="https://amzn.to/3WhWljM" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/61EXSpT2jKL._SL1000_.jpg" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Mobil Super All in One 5W-30 Fully Synthetic</div>
+                            <ul class="advantages">
+                                <li>Triple protection for commercial use</li>
+                                <li>Enhances towing capability</li>
+                            </ul>
+                            <a href="https://amzn.to/47vEuv0" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="model-section">
+                <h3>Fortuner</h3>
+                <p class="intro">Recommended: 5W-30 Synthetic Engine Oil (Capacity: ~7.7L). Premium ladder-frame SUV with robust off-road prowess.</p>
+                <div class="products-grid">
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/71ca7JJvF-L._AC_UF1000,1000_QL80_.jpg" alt="Shell Helix HX8 5W-30" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Shell Helix HX8 5W-30 Fully Synthetic</div>
+                            <ul class="advantages">
+                                <li>High thermal stability for 4x4 adventures</li>
+                                <li>Protects 2.8L diesel under stress</li>
+                            </ul>
+                            <a href="https://amzn.to/48LFkWy" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/61pIXcFn-OL.jpg" alt="Castrol Magnatec 5W-30" class="product-image">
+                        <div class="product-info">
+                            <div class="product-name">Castrol Magnatec 5W-30 Full Synthetic</div>
+                            <ul class="advantages">
+                                <li>Magnatec for instant 4WD protection</li>
+                                <li>Handles extreme temperatures</li>
+                            </ul>
+                            <a href="https://amzn.to/3WhWljM" target="_blank" rel="noopener noreferrer" class="buy-btn">Buy on Amazon</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        
+        <!-- Warning -->
+        <div class="Warning">
+            <p><strong>Important  Note:</strong> All products and recommendations on this page are illustrative as per online public domain information fetched by AI, user must follow the owner manual of the vehicle for right engine oil as per manufacturer instructions. We levy no responsibility for any damage to car engine for choosing the wrong product.</p>
+        </div>
+
+        <!-- Disclosure -->
+        <div class="disclosure">
+            <p><strong>Disclosure:</strong> As an Amazon Associate, Honest Champions advertising partner for Pal Auto Munirka earns from qualifying purchases. All links are intended for Amazon Affiliate Program compliance. Prices and availability may vary.</p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap">
+            <div>
+                <strong>Pal Auto Munirka</strong><br>
+                <span class="small-muted">20A, Kartar Market Munirka, New Delhi-110067 • Mon–Sun 9:0–19:30</span>
+            </div>
+            <div style="text-align:right">
+                <div>Phone: <a href="tel:+917042342392">70423 42392</a></div>
+                <div style="margin-top:6px"><a href="https://wa.me/917042342392" target="_blank" rel="noopener noreferrer">WhatsApp Us</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+      // Client-side filters (brand → model → search)
+      (function(){
         const brandModels = {
           "Maruti Suzuki": ["Swift","Dzire","Alto","Baleno","Brezza"],
           "Hyundai": ["Creta","i20","Venue"],
@@ -205,7 +881,6 @@
         const modelSelect = document.getElementById('modelFilter');
         const searchInput = document.getElementById('searchOil');
         const clearBtn = document.getElementById('clearFilters');
-        const brandSections = Array.from(document.querySelectorAll('.brand-section'));
 
         function populateModelsFor(brand){
           modelSelect.innerHTML = '<option value="">All Models</option>';
@@ -218,57 +893,60 @@
         }
 
         function applyFilters(){
-          const brand = (brandSelect.value || '').trim();
-          const model = (modelSelect.value || '').trim();
+          const brand = brandSelect.value.trim();
+          const model = modelSelect.value.trim();
           const query = (searchInput.value || '').trim().toLowerCase();
 
-          // fresh product card list every time (safer)
-          const productCards = Array.from(document.querySelectorAll('.product-card'));
-
-          productCards.forEach(card => {
-            const cb = (card.dataset.brand || '').trim();
-            const cm = (card.dataset.model || '').trim();
-            const title = (card.dataset.title || '').toLowerCase();
-
-            let visible = true;
-            if(brand && cb !== brand) visible = false;
-            if(model && cm !== model) visible = false;
-            if(query){
-              const contentText = (card.innerText || '').toLowerCase() + ' ' + title;
-              if(!contentText.includes(query)) visible = false;
-            }
-            card.style.display = visible ? '' : 'none';
-          });
-
-          // Show/hide brand sections
+          const brandSections = Array.from(document.querySelectorAll('.brand-section'));
           brandSections.forEach(section => {
-            const anyVisible = Array.from(section.querySelectorAll('.product-card')).some(pc => pc.style.display !== 'none');
-            section.style.display = anyVisible ? '' : 'none';
+            const sectionBrand = section.getAttribute('data-brand') || '';
+            let sectionVisible = false;
+
+            // Check each model-section inside brand-section
+            const modelSections = Array.from(section.querySelectorAll('.model-section'));
+            modelSections.forEach(ms => {
+              const modelName = ms.querySelector('h3') ? ms.querySelector('h3').innerText.trim() : '';
+              let modelSectionVisible = false;
+
+              const cards = Array.from(ms.querySelectorAll('.product-card'));
+              cards.forEach(card => {
+                const title = (card.querySelector('.product-name') && card.querySelector('.product-name').innerText) ? card.querySelector('.product-name').innerText.toLowerCase() : '';
+                const text = (card.innerText || '').toLowerCase();
+
+                let visible = true;
+                if(brand && sectionBrand !== brand) visible = false;
+                if(model && modelName !== model) visible = false;
+                if(query){
+                  if(!text.includes(query) && !title.includes(query)) visible = false;
+                }
+
+                card.style.display = visible ? '' : 'none';
+                if(visible) modelSectionVisible = true;
+              });
+
+              ms.style.display = modelSectionVisible ? '' : 'none';
+              if(modelSectionVisible) sectionVisible = true;
+            });
+
+            section.style.display = sectionVisible ? '' : 'none';
           });
         }
 
-        // events
         brandSelect.addEventListener('change', function(e){
           populateModelsFor(e.target.value);
           modelSelect.value = '';
           applyFilters();
         });
-        modelSelect.addEventListener('change', applyFilters);
-        searchInput.addEventListener('input', function(){ if(this._t) clearTimeout(this._t); this._t = setTimeout(applyFilters, 180); });
-        clearBtn.addEventListener('click', function(){
-          brandSelect.value=''; modelSelect.innerHTML = '<option value="">All Models</option>'; modelSelect.disabled = true; searchInput.value=''; applyFilters();
-        });
 
-        // run once on load (script is at end so DOM is already parsed)
+        modelSelect.addEventListener('change', applyFilters);
+        searchInput.addEventListener('input', function(){ if(this._t) clearTimeout(this._t); this._t = setTimeout(applyFilters,180);});
+        clearBtn.addEventListener('click', function(){ brandSelect.value=''; modelSelect.innerHTML='<option value=\"\">All Models</option>'; modelSelect.disabled=true; searchInput.value=''; applyFilters(); });
+
+        // initialize
         populateModelsFor(brandSelect.value);
         applyFilters();
 
-        console.log('Engine Oils page: JS initialized');
-
-      }catch(err){
-        console.error('Engine Oils script error:', err);
-      }
-    })();
-  </script>
+      })();
+    </script>
 </body>
 </html>
