@@ -141,209 +141,7 @@
     <div class="container-fluid bg-light p-0">
         <div class="row gx-0 d-none d-lg-flex">
             <div class="col-lg-7 px-5 text-start">
-                <div class="col-lg-3 col-md-6">
-                    <h4 class="text-light mb-4">Address</h4>
-                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i><a href="https://maps.app.goo.gl/h9NcExVCxoowknz38" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">20A, Kartar Market Munirka, New Delhi-110067</a></p>
-                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+91-7042342392</p>
-                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>dhirsaab@gmail.com</p>
-                    <div class="d-flex pt-2">
-                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
-                        <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <h4 class="text-light mb-4">Opening Hours</h4>
-                    <h6 class="text-light">Tuesday - Saturday:</h6>
-                    <p class="mb-4">09.30 AM - 07.30 PM</p>
-                    <h6 class="text-light">Sunday - Monday:</h6>
-                    <p class="mb-0">09.30 AM - 08.30 PM</p>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <h4 class="text-light mb-4">Services</h4>
-                    <a class="btn btn-link" href="">Diagnostic Test</a>
-                    <a class="btn btn-link" href="">Engine Servicing</a>
-                    <a class="btn btn-link" href="">Tires Replacement</a>
-                    <a class="btn btn-link" href="">Oil Changing</a>
-                    <a class="btn btn-link" href="">Denting & Painting</a>
-                    <a class="btn btn-link" href="https://www.honestchampions.com/fiscal/insurance">Insurance Renewal</a>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <h4 class="text-light mb-4">Newsletter</h4>
-                    <p>Keep yourself updated with our maintenance newsletters. Enroll Now</p>
-                    <div class="position-relative mx-auto" style="max-width: 400px;">
-                        <input type="email" id="newsletterEmail" name="newsletter_email" class="form-control border-0 w-100 py-3 ps-4 pe-5" placeholder="Your email" required>
-                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="copyright">
-                <div class="row">
-                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        &copy; <a class="border-bottom" href="#">Pal Auto Munirka</a>, All Right Reserved.
-                        Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
-                        <br>Distributed By: <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
-                    </div>
-                    <div class="col-md-6 text-center text-md-end">
-                        <div class="footer-menu">
-                            <a href="">Home</a>
-                            <a href="">Cookies</a>
-                            <a href="">Help</a>
-                            <a href="">FQAs</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Footer End -->
-
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
-
-    <!-- Booking System -->
-    <script>
-        // EmailJS Configuration
-        const EMAILJS_CONFIG = {
-            publicKey: 'sEQwex5V8-qZeJkb5',
-            serviceId: 'service_u89w1lh',
-            templateId: 'template_fdrhixh'
-        };
-        
-        // Initialize EmailJS
-        (function() {
-            emailjs.init(EMAILJS_CONFIG.publicKey);
-        })();
-
-        // Store bookings
-        let bookings = [];
-
-        // Set minimum date to today
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('serviceDate').min = new Date().toISOString().split('T')[0];
-        });
-
-        // Handle form submission
-        async function handleSubmit(event) {
-            event.preventDefault();
-            
-            const submitBtn = document.getElementById('submitBtn');
-            const btnText = document.getElementById('btnText');
-            const btnSpinner = document.getElementById('btnSpinner');
-            
-            submitBtn.disabled = true;
-            btnText.style.display = 'none';
-            btnSpinner.style.display = 'inline';
-
-            const name = document.getElementById('customerName').value;
-            const email = document.getElementById('customerEmail').value;
-            const phone = document.getElementById('customerPhone').value;
-            const service = document.getElementById('serviceType').value;
-            const date = document.getElementById('serviceDate').value;
-            const time = document.getElementById('serviceTime').value;
-            const carModel = document.getElementById('carModel').value;
-            const specialRequest = document.getElementById('specialRequest').value;
-
-            const booking = {
-                id: Date.now(),
-                name, email, phone, service, date, time, carModel, specialRequest,
-                timestamp: new Date().toLocaleString('en-IN')
-            };
-
-            bookings.push(booking);
-
-            const templateParams = {
-                customer_name: name,
-                customer_email: email,
-                customer_phone: phone,
-                service_type: service,
-                service_date: new Date(date).toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' }),
-                service_time: time,
-                car_model: carModel || 'Not specified',
-                special_request: specialRequest || 'None',
-                booking_time: new Date().toLocaleString('en-IN'),
-                booking_id: booking.id,
-                phone_1: '+918588801785',
-                phone_2: '+917042342392'
-            };
-
-            try {
-                await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, templateParams);
-                document.getElementById('customerPhoneDisplay').textContent = phone;
-                showSuccess();
-                document.getElementById('bookingFormElement').reset();
-            } catch (error) {
-                showError('Failed to send booking. Please call us at +91-7042342392');
-            } finally {
-                submitBtn.disabled = false;
-                btnText.style.display = 'inline';
-                btnSpinner.style.display = 'none';
-            }
-        }
-
-        function showSuccess() {
-            document.getElementById('overlay').style.display = 'block';
-            document.getElementById('successMessage').style.display = 'block';
-        }
-
-        function showError(msg) {
-            document.getElementById('errorText').textContent = msg;
-            document.getElementById('overlay').style.display = 'block';
-            document.getElementById('errorMessage').style.display = 'block';
-        }
-
-        function closeMessages() {
-            document.getElementById('overlay').style.display = 'none';
-            document.getElementById('successMessage').style.display = 'none';
-            document.getElementById('errorMessage').style.display = 'none';
-        }
-
-        document.getElementById('overlay').addEventListener('click', closeMessages);
-
-        function exportBookings() {
-            console.table(bookings);
-            return bookings;
-        }
-
-        function downloadBookingsCSV() {
-            if (bookings.length === 0) return alert('No bookings');
-            let csv = 'ID,Name,Email,Phone,Service,Date,Time,Car,Request,Timestamp\n';
-            bookings.forEach(b => {
-                csv += `${b.id},"${b.name}","${b.email}","${b.phone}","${b.service}","${b.date}","${b.time}","${b.carModel||'N/A'}","${b.specialRequest||'None'}","${b.timestamp}"\n`;
-            });
-            const blob = new Blob([csv], {type: 'text/csv'});
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `bookings-${new Date().toISOString().split('T')[0]}.csv`;
-            a.click();
-            URL.revokeObjectURL(url);
-        }
-
-        window.exportBookings = exportBookings;
-        window.downloadBookingsCSV = downloadBookingsCSV;
-    </script>
-</body>
-
-</html>h-100 d-inline-flex align-items-center py-3 me-4">
+                <div class="h-100 d-inline-flex align-items-center py-3 me-4">
                     <small class="fa fa-map-marker-alt text-primary me-2"></small>
                     <small><a href="https://maps.app.goo.gl/h9NcExVCxoowknz38" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">20A, Kartar Market Munirka, New Delhi-110067</a></small>
                 </div>
@@ -687,9 +485,9 @@
             <div class="row g-5">
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-light mb-4">Address</h4>
-                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>20A, kartar Market Munirka, New Delhi-110067</p>
-                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i><a href="https://maps.app.goo.gl/h9NcExVCxoowknz38" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">20A, Kartar Market Munirka, New Delhi-110067</a></p>
+                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+91-7042342392</p>
+                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>dhirsaab@gmail.com</p>
                     <div class="d-flex pt-2">
                         <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
                         <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
@@ -699,10 +497,10 @@
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-light mb-4">Opening Hours</h4>
-                    <h6 class="text-light">Monday - Friday:</h6>
-                    <p class="mb-4">09.00 AM - 09.00 PM</p>
-                    <h6 class="text-light">Saturday - Sunday:</h6>
-                    <p class="mb-0">09.00 AM - 12.00 PM</p>
+                    <h6 class="text-light">Tuesday - Saturday:</h6>
+                    <p class="mb-4">09.30 AM - 07.30 PM</p>
+                    <h6 class="text-light">Sunday - Monday:</h6>
+                    <p class="mb-0">09.30 AM - 08.30 PM</p>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-light mb-4">Services</h4>
@@ -710,13 +508,14 @@
                     <a class="btn btn-link" href="">Engine Servicing</a>
                     <a class="btn btn-link" href="">Tires Replacement</a>
                     <a class="btn btn-link" href="">Oil Changing</a>
-                    <a class="btn btn-link" href="">Vacuam Cleaning</a>
+                    <a class="btn btn-link" href="">Denting & Painting</a>
+                    <a class="btn btn-link" href="https://www.honestchampions.com/fiscal/insurance">Insurance Renewal</a>
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-light mb-4">Newsletter</h4>
-                    <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+                    <p>Keep yourself updated with our maintenance newsletters. Enroll Now</p>
                     <div class="position-relative mx-auto" style="max-width: 400px;">
-                        <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
+                        <input type="email" id="newsletterEmail" name="newsletter_email" class="form-control border-0 w-100 py-3 ps-4 pe-5" placeholder="Your email" required>
                         <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
                     </div>
                 </div>
@@ -726,10 +525,9 @@
             <div class="copyright">
                 <div class="row">
                     <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        &copy; <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved.
-
-                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                        &copy; <a class="border-bottom" href="#">Pal Auto Munirka</a>, All Right Reserved.
                         Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
+                        <br>Distributed By: <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
                     </div>
                     <div class="col-md-6 text-center text-md-end">
                         <div class="footer-menu">
@@ -745,10 +543,8 @@
     </div>
     <!-- Footer End -->
 
-
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-
 
     <!-- JavaScript Libraries -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -764,6 +560,129 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <!-- Booking System -->
+    <script>
+        // EmailJS Configuration
+        const EMAILJS_CONFIG = {
+            publicKey: 'sEQwex5V8-qZeJkb5',
+            serviceId: 'service_u89w1lh',
+            templateId: 'template_fdrhixh'
+        };
+        
+        // Initialize EmailJS
+        (function() {
+            emailjs.init(EMAILJS_CONFIG.publicKey);
+        })();
+
+        // Store bookings
+        let bookings = [];
+
+        // Set minimum date to today
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('serviceDate').min = new Date().toISOString().split('T')[0];
+        });
+
+        // Handle form submission
+        async function handleSubmit(event) {
+            event.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const btnSpinner = document.getElementById('btnSpinner');
+            
+            submitBtn.disabled = true;
+            btnText.style.display = 'none';
+            btnSpinner.style.display = 'inline';
+
+            const name = document.getElementById('customerName').value;
+            const email = document.getElementById('customerEmail').value;
+            const phone = document.getElementById('customerPhone').value;
+            const service = document.getElementById('serviceType').value;
+            const date = document.getElementById('serviceDate').value;
+            const time = document.getElementById('serviceTime').value;
+            const carModel = document.getElementById('carModel').value;
+            const specialRequest = document.getElementById('specialRequest').value;
+
+            const booking = {
+                id: Date.now(),
+                name, email, phone, service, date, time, carModel, specialRequest,
+                timestamp: new Date().toLocaleString('en-IN')
+            };
+
+            bookings.push(booking);
+
+            const templateParams = {
+                customer_name: name,
+                customer_email: email,
+                customer_phone: phone,
+                service_type: service,
+                service_date: new Date(date).toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' }),
+                service_time: time,
+                car_model: carModel || 'Not specified',
+                special_request: specialRequest || 'None',
+                booking_time: new Date().toLocaleString('en-IN'),
+                booking_id: booking.id,
+                phone_1: '+918588801785',
+                phone_2: '+917042342392'
+            };
+
+            try {
+                await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, templateParams);
+                document.getElementById('customerPhoneDisplay').textContent = phone;
+                showSuccess();
+                document.getElementById('bookingFormElement').reset();
+            } catch (error) {
+                showError('Failed to send booking. Please call us at +91-7042342392');
+            } finally {
+                submitBtn.disabled = false;
+                btnText.style.display = 'inline';
+                btnSpinner.style.display = 'none';
+            }
+        }
+
+        function showSuccess() {
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('successMessage').style.display = 'block';
+        }
+
+        function showError(msg) {
+            document.getElementById('errorText').textContent = msg;
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('errorMessage').style.display = 'block';
+        }
+
+        function closeMessages() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+
+        document.getElementById('overlay').addEventListener('click', closeMessages);
+
+        function exportBookings() {
+            console.table(bookings);
+            return bookings;
+        }
+
+        function downloadBookingsCSV() {
+            if (bookings.length === 0) return alert('No bookings');
+            let csv = 'ID,Name,Email,Phone,Service,Date,Time,Car,Request,Timestamp\n';
+            bookings.forEach(b => {
+                csv += `${b.id},"${b.name}","${b.email}","${b.phone}","${b.service}","${b.date}","${b.time}","${b.carModel||'N/A'}","${b.specialRequest||'None'}","${b.timestamp}"\n`;
+            });
+            const blob = new Blob([csv], {type: 'text/csv'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `bookings-${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        window.exportBookings = exportBookings;
+        window.downloadBookingsCSV = downloadBookingsCSV;
+    </script>
 </body>
 
 </html>
